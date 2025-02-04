@@ -1,7 +1,5 @@
 # PL2025
 
-****
-
 ## Aluno
 
 **Nome:** Guilherme Oliveira
