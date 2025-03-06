@@ -1,0 +1,54 @@
+[
+    {
+        "id": "COMMENT",
+        "expreg": "\\#.*"
+    },
+    {
+        "id": "SELECT",
+        "expreg": "[sS][eE][lL][eE][cC][tT]"
+    },
+    {
+        "id": "LIMIT",
+        "expreg": "[lL][iI][mM][iI][tT]"
+    },
+    {
+        "id": "WHERE",
+        "expreg": "[wW][hH][eE][rR][eE]"
+    },
+    {
+        "id": "RBRACKET",
+        "expreg": "\\{"
+    },
+    {
+        "id": "LBRACKET",
+        "expreg": "\\}"
+    },
+    {
+        "id": "NUMBER",
+        "expreg": "\\d+"
+    },
+    {
+        "id": "VARIABLE",
+        "expreg": "\\?[a-z]+"
+    },
+    {
+        "id": "URI",
+        "expreg": "[a-zA-Z0-9]+:[a-zA-Z0-9]+"
+    },
+    {
+        "id": "LANG",
+        "expreg": "\"[^\"]*\"@[a-zA-Z]+"
+    },
+    {
+        "id": "A",
+        "expreg": "a"
+    },
+    {
+        "id": "DOT",
+        "expreg": "\\."
+    },
+    {
+        "id": "NEWLINE",
+        "expreg": "\\n+"
+    }
+]
