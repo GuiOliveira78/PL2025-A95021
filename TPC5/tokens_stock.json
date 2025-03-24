@@ -1,0 +1,38 @@
+[
+    {
+        "id": "LISTAR",
+        "expreg": "[lL][iI][sS][tT][aA][rR]"
+    },
+    {
+        "id": "MOEDA",
+        "expreg": "[mM][oO][eE][dD][aA]"
+    },
+    {
+        "id": "SELECIONAR",
+        "expreg": "[sS][eE][lL][eE][cC][iI][oO][nN][aA][rR]"
+    },
+    {
+        "id": "CODIGO",
+        "expreg": "A\\d+"
+    },
+    {
+        "id": "SAIR",
+        "expreg": "[sS][aA][iI][rR]"
+    },
+    {
+        "id": "EURO",
+        "expreg": "\\d+e"
+    },
+    {
+        "id": "CENT",
+        "expreg": "\\d+c"
+    },
+    {
+        "id": "VIRGULA",
+        "expreg": ","
+    },
+    {
+        "id": "PONTO",
+        "expreg": "\\."
+    }
+]
