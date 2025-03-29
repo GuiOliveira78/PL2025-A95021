@@ -1,0 +1,13 @@
+2+3 => 5
+67-(2+3*4) => 53
+(9-2)*(13-4) => 63
+
+S     : Exp
+Exp   -> Exp ADD Termo
+      | Exp SUB Termo
+      | Termo
+Termo -> Termo MUL Fator
+      | Termo DIV Fator
+      | Fator
+Fator -> LPAREN Exp RPAREN
+      | NUM
