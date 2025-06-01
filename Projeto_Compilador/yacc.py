@@ -299,41 +299,6 @@ def p_ExpressionList(p):
     else:
         p[0] = p[1] + [p[3]]
 
-def p_Expression_length(p):
-    '''Expression : LENGTH LPAREN Expression RPAREN'''
-    expr_code, expr_type = p[3]
-    if expr_type != 'string':
-        print("Error: length() argument must be a string")
-        p[0] = ("", 'error')
-        return
-    p[0] = (f"{expr_code}STRLEN\n", 'integer')
-
-def p_Expression_function_call(p):
-    '''Expression : ID LPAREN ActualParameters RPAREN'''
-    func_name = p[1].lower()
-    if func_name == 'length':
-        print("Error: 'length' is a reserved function name")
-        p[0] = ("", 'error')
-        return
-    if func_name not in function_table:
-        print(f"Error: Undeclared function '{func_name}'")
-        p[0] = ("", 'error')
-        return
-    func_info = function_table[func_name]
-    args = p[3]
-    if len(args) != len(func_info['params']):
-        print(f"Error: Argument count mismatch for '{func_name}'")
-        p[0] = ("", 'error')
-        return
-    arg_code = ""
-    for arg, param in zip(args, func_info['params']):
-        arg_code += arg[0]
-        if arg[1] != param[1]:
-            print(f"Error: Type mismatch in argument for '{func_name}'")
-            p[0] = ("", 'error')
-            return
-    call_code = f"PUSHI 0\n{arg_code}PUSHA {func_info['label']}\nCALL\n"
-    p[0] = (call_code, func_info['return_type'])
 
 def p_IfStatement_then(p):
     '''IfStatement : IF Expression THEN Statement'''
@@ -416,25 +381,151 @@ def p_ForStatement(p):
         f"{end_label}:\n"
     )
 
-def p_Expression_number(p):
-    '''Expression : NUMBER'''
-    p[0] = (f"PUSHI {p[1]}\n", 'integer')
 
-def p_Expression_group(p):
-    '''Expression : LPAREN Expression RPAREN'''
+# ===== NOVA HIERARQUIA DE EXPRESSÕES =====
+
+# Expression agora delega para ExprBool
+def p_Expression(p):
+    '''Expression : ExprBool'''
+    p[0] = p[1]
+
+# ExprBool : Expr | Expr OpRel Expr
+def p_ExprBool_expr(p):
+    '''ExprBool : Expr'''
+    p[0] = p[1]
+
+def p_ExprBool_rel(p):
+    '''ExprBool : Expr OpRel Expr'''
+    code1, type1 = p[1]
+    op, opstr = p[2]
+    code3, type3 = p[3]
+    if type1 == type3 and type1 in ('integer', 'boolean'):
+        op_code = {'=': 'EQUAL', '<>': 'NOTEQUAL', '<': 'INF', '<=': 'INFEQ', '>': 'SUP', '>=': 'SUPEQ'}[opstr]
+        p[0] = (f"{code1}{code3}{op_code}\n", 'boolean')
+    else:
+        print("Error: Type mismatch in relational expression")
+        p[0] = ("", 'error')
+
+# OpRel : EQ | NEQ | LT | LTE | GT | GTE
+def p_OpRel(p):
+    '''OpRel : EQ
+             | NEQ
+             | LT
+             | LTE
+             | GT
+             | GTE'''
+    p[0] = (p[1], p[1])
+
+# Expr : Termo | Expr OpAd Termo
+def p_Expr_termo(p):
+    '''Expr : Termo'''
+    p[0] = p[1]
+
+def p_Expr_opad(p):
+    '''Expr : Expr OpAd Termo'''
+    code1, type1 = p[1]
+    op, opstr = p[2]
+    code3, type3 = p[3]
+    if opstr in ('+', '-') and type1 == 'integer' and type3 == 'integer':
+        op_code = {'+': 'ADD', '-': 'SUB'}[opstr]
+        p[0] = (f"{code1}{code3}{op_code}\n", 'integer')
+    elif opstr == 'or' and type1 == 'boolean' and type3 == 'boolean':
+        # boolean OR: (a OR b) <=> a + b >= 1
+        p[0] = (f"{code1}{code3}ADD\nPUSHI 1\nSUPEQ\n", 'boolean')
+    else:
+        print("Error: Type mismatch in additive expression")
+        p[0] = ("", 'error')
+
+# OpAd : PLUS | MINUS | OR
+def p_OpAd_plus(p):
+    '''OpAd : PLUS'''
+    p[0] = (p[1], '+')
+def p_OpAd_minus(p):
+    '''OpAd : MINUS'''
+    p[0] = (p[1], '-')
+def p_OpAd_or(p):
+    '''OpAd : OR'''
+    p[0] = (p[1], 'or')
+
+# Termo : Fator | Termo OpMul Fator
+def p_Termo_fator(p):
+    '''Termo : Fator'''
+    p[0] = p[1]
+
+def p_Termo_opmul(p):
+    '''Termo : Termo OpMul Fator'''
+    code1, type1 = p[1]
+    op, opstr = p[2]
+    code3, type3 = p[3]
+    if opstr in ('*', 'div', 'mod') and type1 == 'integer' and type3 == 'integer':
+        op_code = {'*': 'MUL', 'div': 'DIV', 'mod': 'MOD'}[opstr]
+        p[0] = (f"{code1}{code3}{op_code}\n", 'integer')
+    elif opstr == 'and' and type1 == 'boolean' and type3 == 'boolean':
+        # boolean AND: (a AND b) <=> a + b == 2
+        p[0] = (f"{code1}{code3}ADD\nPUSHI 2\nEQUAL\n", 'boolean')
+    else:
+        print("Error: Type mismatch in multiplicative expression")
+        p[0] = ("", 'error')
+
+# OpMul : TIMES | DIV | MOD | AND
+def p_OpMul_times(p):
+    '''OpMul : TIMES'''
+    p[0] = (p[1], '*')
+def p_OpMul_div(p):
+    '''OpMul : DIV'''
+    p[0] = (p[1], 'div')
+def p_OpMul_mod(p):
+    '''OpMul : MOD'''
+    p[0] = (p[1], 'mod')
+def p_OpMul_and(p):
+    '''OpMul : AND'''
+    p[0] = (p[1], 'and')
+
+# Fator : Const | Var | LPAREN ExprBool RPAREN | Expression_function_call
+def p_Fator_const(p):
+    '''Fator : Const'''
+    p[0] = p[1]
+
+def p_Fator_var(p):
+    '''Fator : Var'''
+    p[0] = p[1]
+
+def p_Fator_group(p):
+    '''Fator : LPAREN ExprBool RPAREN'''
     p[0] = p[2]
 
-def p_Expression_boolean(p):
-    '''Expression : TRUE
-                  | FALSE'''
-    p[0] = ("PUSHI 1\n", 'boolean') if p[1].lower() == 'true' else ("PUSHI 0\n", 'boolean')
+def p_Fator_function_call(p):
+    '''Fator : Expression_function_call'''
+    p[0] = p[1]
 
-def p_Expression_string(p):
-    '''Expression : STRING_LITERAL'''
+# Logical NOT for boolean expressions
+def p_Fator_not(p):
+    '''Fator : NOT Fator'''
+    code, typ = p[2]
+    if typ != 'boolean':
+        print("Error: NOT applied to non-boolean")
+        p[0] = ("", 'error')
+    else:
+        # NOT x ≡ x == 0
+        p[0] = (f"{code}PUSHI 0\nEQUAL\n", 'boolean')
+
+# Const : NUMBER | STRING_LITERAL | TRUE | FALSE
+def p_Const_number(p):
+    '''Const : NUMBER'''
+    p[0] = (f"PUSHI {p[1]}\n", 'integer')
+def p_Const_string(p):
+    '''Const : STRING_LITERAL'''
     p[0] = (f"PUSHS \"{p[1]}\"\n", "string")
+def p_Const_true(p):
+    '''Const : TRUE'''
+    p[0] = ("PUSHI 1\n", 'boolean')
+def p_Const_false(p):
+    '''Const : FALSE'''
+    p[0] = ("PUSHI 0\n", 'boolean')
 
-def p_Expression_id(p):
-    '''Expression : ID'''
+# Var : ID | ID LBRACKET ExprBool RBRACKET
+def p_Var_id(p):
+    '''Var : ID'''
     var_name = p[1].lower()
     symbol = get_symbol(var_name)
     if not symbol:
@@ -448,8 +539,8 @@ def p_Expression_id(p):
     op = 'PUSHL' if symbol.get('is_local') else 'PUSHG'
     p[0] = (f"{op} {symbol['offset']}\n", symbol['type'])
 
-def p_Expression_array_access(p):
-    '''Expression : ID LBRACKET Expression RBRACKET'''
+def p_Var_array(p):
+    '''Var : ID LBRACKET ExprBool RBRACKET'''
     var_name = p[1].lower()
     index_code, index_type = p[3]
     symbol = get_symbol(var_name)
@@ -478,94 +569,48 @@ def p_Expression_array_access(p):
         print(f"Error: '{var_name}' is not an array or string")
         p[0] = ("", 'error')
 
+# Expression_function_call : ID LPAREN ActualParameters RPAREN | LENGTH LPAREN ExprBool RPAREN
 def p_Expression_function_call(p):
-    '''Expression : ID LPAREN ActualParameters RPAREN'''
-    func_name = p[1].lower()
-    if func_name not in function_table:
-        print(f"Error: Undeclared function '{func_name}'")
-        p[0] = ("", 'error')
-        return
-    func_info = function_table[func_name]
-    args = p[3]
-    if len(args) != len(func_info['params']):
-        print(f"Error: Argument count mismatch for '{func_name}'")
-        p[0] = ("", 'error')
-        return
-    arg_code = ""
-    for arg, param in zip(args, func_info['params']):
-        arg_code += arg[0]
-        if arg[1] != param[1]:
-            print(f"Error: Type mismatch in argument for '{func_name}'")
+    '''Expression_function_call : ID LPAREN ActualParameters RPAREN
+                                | LENGTH LPAREN ExprBool RPAREN'''
+    if p[1].lower() == 'length':
+        expr_code, expr_type = p[3]
+        if expr_type != 'string':
+            print("Error: length() argument must be a string")
             p[0] = ("", 'error')
             return
-    call_code = f"PUSHI 0\n{arg_code}PUSHA {func_info['label']}\nCALL\n"
-    p[0] = (call_code, func_info['return_type'])
+        p[0] = (f"{expr_code}STRLEN\n", 'integer')
+    else:
+        func_name = p[1].lower()
+        if func_name not in function_table:
+            print(f"Error: Undeclared function '{func_name}'")
+            p[0] = ("", 'error')
+            return
+        func_info = function_table[func_name]
+        args = p[3]
+        if len(args) != len(func_info['params']):
+            print(f"Error: Argument count mismatch for '{func_name}'")
+            p[0] = ("", 'error')
+            return
+        arg_code = ""
+        for arg, param in zip(args, func_info['params']):
+            arg_code += arg[0]
+            if arg[1] != param[1]:
+                print(f"Error: Type mismatch in argument for '{func_name}'")
+                p[0] = ("", 'error')
+                return
+        call_code = f"PUSHI 0\n{arg_code}PUSHA {func_info['label']}\nCALL\n"
+        p[0] = (call_code, func_info['return_type'])
 
+# Atualizar ActualParameters para usar ExprBool
 def p_ActualParameters(p):
-    '''ActualParameters : Expression
-                        | Expression COMMA ActualParameters
+    '''ActualParameters : ExprBool
+                        | ExprBool COMMA ActualParameters
                         | empty'''
     if len(p) == 2:
         p[0] = [] if p[1] == '' else [p[1]]
     else:
         p[0] = [p[1]] + p[3]
-
-def p_Expression_binop(p):
-    '''Expression : Expression PLUS Expression
-                  | Expression MINUS Expression
-                  | Expression TIMES Expression'''
-    code1, type1 = p[1]
-    op = p[2]
-    code3, type3 = p[3]
-    if type1 == 'integer' and type3 == 'integer':
-        op_code = {'+': 'ADD', '-': 'SUB', '*': 'MUL'}[op]
-        p[0] = (f"{code1}{code3}{op_code}\n", 'integer')
-    else:
-        print("Error: Type mismatch in expression")
-        p[0] = ("", 'error')
-
-def p_Expression_moddiv(p):
-    '''Expression : Expression MOD Expression
-                  | Expression DIV Expression'''
-    code1, t1 = p[1]
-    code3, t2 = p[3]
-    if t1 == t2 == 'integer':
-        p[0] = (f"{code1}{code3}{p[2]}\n", 'integer')
-    else:
-        print("Error: Type mismatch in mod/div")
-        p[0] = ("", 'error')
-
-def p_Expression_rel(p):
-    '''Expression : Expression LT Expression
-                  | Expression GT Expression
-                  | Expression EQ Expression
-                  | Expression NEQ Expression
-                  | Expression LTE Expression
-                  | Expression GTE Expression'''
-    code1, type1 = p[1]
-    op = p[2]
-    code3, type3 = p[3]
-    if type1 == type3 and type1 in ('integer', 'boolean'):
-        op_code = {'<': 'INF', '>': 'SUP', '=': 'EQUAL', '<>': 'NOTEQUAL', '<=': 'INFEQ', '>=': 'SUPEQ'}[op]
-        p[0] = (f"{code1}{code3}{op_code}\n", 'boolean')
-    else:
-        print("Error: Type mismatch in relational expression")
-        p[0] = ("", 'error')
-
-def p_Expression_log(p):
-    '''Expression : Expression AND Expression
-                  | Expression OR Expression'''
-    code1, type1 = p[1]
-    op = p[2]
-    code3, type3 = p[3]
-    if type1 == 'boolean' and type3 == 'boolean':
-        if op == "and":
-            p[0] = (f"{code1}{code3}ADD\nPUSHI 2\nEQUAL\n", 'boolean')
-        elif op == "or":
-            p[0] = (f"{code1}{code3}ADD\nPUSHI 1\nSUPEQ\n", 'boolean')
-    else:
-        print("Error: Type mismatch in logical expression")
-        p[0] = ("", 'error')
 
 def p_ArrayAccess(p):
     '''ArrayAccess : ID LBRACKET Expression RBRACKET'''

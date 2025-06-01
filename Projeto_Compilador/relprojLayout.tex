@@ -118,7 +118,7 @@
 \author{Diogo Neto\\ (a98197) \and Guilherme Oliveira\\ (A95021)
          \and Pedro Pacheco\\ (A61042)
        } %autores do documento
-\date{\today} %data
+\date{1 de junho de 2025} %data
 
 \begin{document} % corpo do documento
 \maketitle % apresentar titulo, autor e data
@@ -185,49 +185,35 @@ A implementação do nosso compilador foi organizada de forma modular, sendo div
 
 Todas as funcionalidades implementadas e descritas neste capítulo encontram-se detalhadas no \textbf{Anexo A} deste documento.
 
+
 \section{GIC}
-A construção do código segue as seguintes produções:  
+A construção do código segue as seguintes produções, com respeito rigoroso às prioridades dos operadores:
 \begin{verbatim}
 Programa             : PROGRAM ID SEMICOLON Block DOT
-
 Block                : Declarations CompoundStatement
-
 Declarations         : VarDeclarationPart FunctionDeclarations
-
 VarDeclarationPart   : VAR VarDeclarationList
                      | empty
-
 VarDeclarationList   : VarDeclaration
                      | VarDeclarationList VarDeclaration
-
 VarDeclaration       : IdList COLON Type SEMICOLON
-
 IdList               : ID
                      | ID COMMA IdList
-
 Type                 : BasicType
                      | ArrayType
-
 BasicType            : INTEGER
                      | STRING
                      | BOOLEAN
-
 ArrayType            : ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType
-
 FunctionDeclarations : FunctionDeclaration FunctionDeclarations
                      | empty
-
 FunctionDeclaration  : FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
-
 FormalParameters     : ID COLON Type
                      | ID COLON Type SEMICOLON FormalParameters
                      | empty
-
 CompoundStatement    : BEGIN StatementList END
-
 StatementList        : Statement
                      | StatementList SEMICOLON Statement
-
 Statement            : AssignmentStatement
                      | WriteStatement
                      | ReadStatement
@@ -236,115 +222,63 @@ Statement            : AssignmentStatement
                      | ForStatement
                      | CompoundStatement
                      | empty
-
 ReadStatement        : READLN LPAREN ArrayAccess RPAREN
                      | READLN LPAREN ID RPAREN
-
 AssignmentStatement  : ID ASSIGN Expression
                      | ArrayAccess ASSIGN Expression
-
 WriteStatement       : WRITELN LPAREN ExpressionList RPAREN
-
 ExpressionList       : Expression
                      | ExpressionList COMMA Expression
-
-Expression           : LENGTH LPAREN Expression RPAREN
-                     | ID LPAREN ActualParameters RPAREN
-                     | NUMBER
-                     | LPAREN Expression RPAREN
-                     | TRUE
-                     | FALSE
-                     | STRING_LITERAL
-                     | ID
-                     | ID LBRACKET Expression RBRACKET
-                     | Expression PLUS Expression
-                     | Expression MINUS Expression
-                     | Expression TIMES Expression
-                     | Expression MOD Expression
-                     | Expression DIV Expression
-                     | Expression LT Expression
-                     | Expression GT Expression
-                     | Expression EQ Expression
-                     | Expression NEQ Expression
-                     | Expression LTE Expression
-                     | Expression GTE Expression
-                     | Expression AND Expression
-                     | Expression OR Expression
-
-ActualParameters     : Expression
-                     | Expression COMMA ActualParameters
+Expression           : ExprBool
+ExprBool             : Expr
+                     | Expr OpRel Expr
+OpRel                : EQ | NEQ | LT | LTE | GT | GTE
+Expr                 : Termo
+                     | Expr OpAd Termo
+OpAd                 : PLUS | MINUS | OR
+Termo                : Fator
+                     | Termo OpMul Fator
+OpMul                : TIMES | DIV | MOD | AND
+Fator                : Const
+                     | Var
+                     | LPAREN ExprBool RPAREN
+                     | Expression_function_call
+                     | NOT Fator
+Const                : NUMBER | STRING_LITERAL | TRUE | FALSE
+Var                  : ID
+                     | ID LBRACKET ExprBool RBRACKET
+Expression_function_call : ID LPAREN ActualParameters RPAREN
+                          | LENGTH LPAREN ExprBool RPAREN
+ActualParameters     : ExprBool
+                     | ExprBool COMMA ActualParameters
                      | empty
-
 IfStatement          : IF Expression THEN Statement
                      | IF Expression THEN Statement ELSE Statement
-
 WhileStatement       : WHILE Expression DO Statement
-
 ForStatement         : FOR ID ASSIGN Expression TO Expression DO Statement
-
 ArrayAccess          : ID LBRACKET Expression RBRACKET
-
 empty                : (vazio)
 \end{verbatim}
 
+
 \section{Lexer}
-O analisador léxico é responsável por capturar, com expressões regulares, os simbolos terminais (tokens) dos programas escritos em pascal de acordo com as seguintes definições:
+O analisador léxico define tokens com expressões regulares específicas, sem recurso à abordagem de dicionário de palavras reservadas. Todas as palavras-chave da linguagem são definidas individualmente com funções do tipo:
 \begin{verbatim}
-PROGRAM        : 'program'
-VAR            : 'var'
-BEGIN          : 'begin'
-END            : 'end'
-IF             : 'if'
-THEN           : 'then'
-ELSE           : 'else'
-WHILE          : 'while'
-DO             : 'do'
-FOR            : 'for'
-TO             : 'to'
-FUNCTION       : 'function'
-DIV            : 'div'
-MOD            : 'mod'
-INTEGER        : 'integer'
-STRING         : 'string'
-BOOLEAN        : 'boolean'
-TRUE           : 'true'
-FALSE          : 'false'
-WRITELN        : 'writeln'
-WRITE          : 'write'
-READLN         : 'readln'
-READ           : 'read'
-ARRAY          : 'array'
-OF             : 'of'
-AND            : 'and'
-OR             : 'or'
-LENGTH         : 'length'
-
-PLUS           : '+'
-MINUS          : '-'
-TIMES          : '*'
-ASSIGN         : ':='
-EQ             : '='
-NEQ            : '<>'
-GT             : '>'
-LT             : '<'
-GTE            : '>='
-LTE            : '<='
-
-COMMA          : ','
-LPAREN         : '('
-RPAREN         : ')'
-LBRACKET       : '['
-RBRACKET       : ']'
-SEMICOLON      : ';'
-DOT            : '.'
-COLON          : ':'
-DOTDOT         : '..'
-
-STRING_LITERAL : '\'' [^']* '\''
-ID             : r'[a-zA-Z_][a-zA-Z0-9_]*'
-NUMBER         : r'\d+(\.\d+)?'
+def t_PROGRAM(t):
+    r'program'
+    return t
 \end{verbatim}
-Durante a análise, a função \texttt{t\_ABC} verifica se um identificador corresponde a uma palavra reservada, literal ou símbolo terminal, atribuindo-lhe o token adequado, este processo é análogo para todos os outros símbolos e, todos os tokens são posteriormente usados no parser para a análise sintática.
+
+A lista de tokens definidos inclui:
+
+\begin{itemize}
+  \item Palavras-chave: \texttt{PROGRAM, VAR, BEGIN, END, IF, THEN, ELSE, WHILE, DO, FOR, TO, FUNCTION, DIV, MOD, LENGTH, INTEGER, STRING, BOOLEAN, TRUE, FALSE, WRITELN, WRITE, READLN, READ, ARRAY, OF}
+  \item Operadores e símbolos: \texttt{PLUS, MINUS, TIMES, ASSIGN, GT, LT, EQ, NEQ, GTE, LTE, AND, OR, NOT}
+  \item Delimitadores e outros símbolos: \texttt{SEMICOLON, DOT, COLON, COMMA, LPAREN, RPAREN, LBRACKET, RBRACKET, DOTDOT}
+  \item Literais e identificadores: \texttt{NUMBER, STRING\_LITERAL, ID}
+\end{itemize}
+
+Os comentários são ignorados via expressões regulares para \texttt{\{...\}} ou \texttt{(*...*)}.
 
 \newpage
 \section{Parser e conversão para assembly VM}
@@ -577,7 +511,7 @@ O programa calcula o maior de 3 dígitos e imprime o resultado
 
 \subsection{Código assembly gerado - maiorde3}
 \begin{verbatim}
-    START
+START
 PUSHI 0
 STOREG 0
 PUSHI 0
@@ -655,7 +589,7 @@ O programa calcula o fatorial de um número.
 
 \subsection{Código assembly gerado - fatorial }
 \begin{verbatim}
-    START
+   START
 PUSHI 0
 STOREG 0
 PUSHI 0
@@ -725,7 +659,7 @@ O programa verifica se um número é par ou ímpar.
 
 \subsection{Código assembly gerado - NumerpPrimo}
 \begin{verbatim}
-    START
+ START
 PUSHI 0
 STOREG 0
 PUSHI 0
@@ -745,7 +679,7 @@ L2:
 PUSHG 1
 PUSHG 0
 PUSHI 2
-div
+DIV
 INFEQ
 PUSHG 2
 ADD
@@ -754,7 +688,7 @@ EQUAL
 JZ L3
 PUSHG 0
 PUSHG 1
-mod
+MOD
 PUSHI 0
 EQUAL
 JZ L1
@@ -807,7 +741,7 @@ O programa soma todos os elementos de um array
 
 \subsection{Código assembly gerado - SomaArray }
 \begin{verbatim}
-    START
+   START
 PUSHI 0
 STOREG 0
 PUSHI 0
@@ -833,8 +767,6 @@ PUSHG 5
 PUSHI 5
 INFEQ
 JZ L2
-PUSHG 5
-WRITEI
 PUSHGP
 PUSHG 5
 PUSHI 1
