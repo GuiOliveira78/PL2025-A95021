@@ -1,0 +1,3993 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    READ
+    WRITE
+
+Grammar
+
+Rule 0     S' -> Program
+Rule 1     Program -> PROGRAM ID SEMICOLON Block DOT
+Rule 2     Block -> Declarations CompoundStatement
+Rule 3     Declarations -> VarDeclarationPart FunctionDeclarations
+Rule 4     VarDeclarationPart -> VAR VarDeclarationList
+Rule 5     VarDeclarationPart -> empty
+Rule 6     VarDeclarationList -> VarDeclaration
+Rule 7     VarDeclarationList -> VarDeclarationList VarDeclaration
+Rule 8     VarDeclaration -> IdList COLON Type SEMICOLON
+Rule 9     IdList -> ID
+Rule 10    IdList -> ID COMMA IdList
+Rule 11    Type -> BasicType
+Rule 12    Type -> ArrayType
+Rule 13    BasicType -> INTEGER
+Rule 14    BasicType -> STRING
+Rule 15    BasicType -> BOOLEAN
+Rule 16    ArrayType -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType
+Rule 17    FunctionDeclarations -> FunctionDeclaration FunctionDeclarations
+Rule 18    FunctionDeclarations -> empty
+Rule 19    FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
+Rule 20    FormalParameters -> ID COLON Type
+Rule 21    FormalParameters -> ID COLON Type SEMICOLON FormalParameters
+Rule 22    FormalParameters -> empty
+Rule 23    CompoundStatement -> BEGIN StatementList END
+Rule 24    StatementList -> Statement
+Rule 25    StatementList -> StatementList SEMICOLON Statement
+Rule 26    Statement -> AssignmentStatement
+Rule 27    Statement -> WriteStatement
+Rule 28    Statement -> ReadStatement
+Rule 29    Statement -> IfStatement
+Rule 30    Statement -> WhileStatement
+Rule 31    Statement -> ForStatement
+Rule 32    Statement -> CompoundStatement
+Rule 33    Statement -> empty
+Rule 34    ReadStatement -> READLN LPAREN ArrayAccess RPAREN
+Rule 35    ReadStatement -> READLN LPAREN ID RPAREN
+Rule 36    AssignmentStatement -> ID ASSIGN Expression
+Rule 37    AssignmentStatement -> ArrayAccess ASSIGN Expression
+Rule 38    WriteStatement -> WRITELN LPAREN ExpressionList RPAREN
+Rule 39    ExpressionList -> Expression
+Rule 40    ExpressionList -> ExpressionList COMMA Expression
+Rule 41    Expression -> LENGTH LPAREN Expression RPAREN
+Rule 42    IfStatement -> IF Expression THEN Statement
+Rule 43    IfStatement -> IF Expression THEN Statement ELSE Statement
+Rule 44    WhileStatement -> WHILE Expression DO Statement
+Rule 45    ForStatement -> FOR ID ASSIGN Expression TO Expression DO Statement
+Rule 46    Expression -> NUMBER
+Rule 47    Expression -> LPAREN Expression RPAREN
+Rule 48    Expression -> TRUE
+Rule 49    Expression -> FALSE
+Rule 50    Expression -> STRING_LITERAL
+Rule 51    Expression -> ID
+Rule 52    Expression -> ID LBRACKET Expression RBRACKET
+Rule 53    Expression -> ID LPAREN ActualParameters RPAREN
+Rule 54    ActualParameters -> Expression
+Rule 55    ActualParameters -> Expression COMMA ActualParameters
+Rule 56    ActualParameters -> empty
+Rule 57    Expression -> Expression PLUS Expression
+Rule 58    Expression -> Expression MINUS Expression
+Rule 59    Expression -> Expression TIMES Expression
+Rule 60    Expression -> Expression MOD Expression
+Rule 61    Expression -> Expression DIV Expression
+Rule 62    Expression -> Expression LT Expression
+Rule 63    Expression -> Expression GT Expression
+Rule 64    Expression -> Expression EQ Expression
+Rule 65    Expression -> Expression NEQ Expression
+Rule 66    Expression -> Expression LTE Expression
+Rule 67    Expression -> Expression GTE Expression
+Rule 68    Expression -> Expression AND Expression
+Rule 69    Expression -> Expression OR Expression
+Rule 70    ArrayAccess -> ID LBRACKET Expression RBRACKET
+Rule 71    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 68
+ARRAY                : 16
+ASSIGN               : 36 37 45
+BEGIN                : 23
+BOOLEAN              : 15
+COLON                : 8 19 20 21
+COMMA                : 10 40 55
+DIV                  : 61
+DO                   : 44 45
+DOT                  : 1
+DOTDOT               : 16
+ELSE                 : 43
+END                  : 23
+EQ                   : 64
+FALSE                : 49
+FOR                  : 45
+FUNCTION             : 19
+GT                   : 63
+GTE                  : 67
+ID                   : 1 9 10 19 20 21 35 36 45 51 52 53 70
+IF                   : 42 43
+INTEGER              : 13
+LBRACKET             : 16 52 70
+LENGTH               : 41
+LPAREN               : 19 34 35 38 41 47 53
+LT                   : 62
+LTE                  : 66
+MINUS                : 58
+MOD                  : 60
+NEQ                  : 65
+NUMBER               : 16 16 46
+OF                   : 16
+OR                   : 69
+PLUS                 : 57
+PROGRAM              : 1
+RBRACKET             : 16 52 70
+READ                 : 
+READLN               : 34 35
+RPAREN               : 19 34 35 38 41 47 53
+SEMICOLON            : 1 8 19 21 25
+STRING               : 14
+STRING_LITERAL       : 50
+THEN                 : 42 43
+TIMES                : 59
+TO                   : 45
+TRUE                 : 48
+VAR                  : 4
+WHILE                : 44
+WRITE                : 
+WRITELN              : 38
+error                : 
+
+Nonterminals, with rules where they appear
+
+ActualParameters     : 53 55
+ArrayAccess          : 34 37
+ArrayType            : 12
+AssignmentStatement  : 26
+BasicType            : 11 16 19
+Block                : 1
+CompoundStatement    : 2 19 32
+Declarations         : 2 19
+Expression           : 36 37 39 40 41 42 43 44 45 45 47 52 54 55 57 57 58 58 59 59 60 60 61 61 62 62 63 63 64 64 65 65 66 66 67 67 68 68 69 69 70
+ExpressionList       : 38 40
+ForStatement         : 31
+FormalParameters     : 19 21
+FunctionDeclaration  : 17
+FunctionDeclarations : 3 17
+IdList               : 8 10
+IfStatement          : 29
+Program              : 0
+ReadStatement        : 28
+Statement            : 24 25 42 43 43 44 45
+StatementList        : 23 25
+Type                 : 8 20 21
+VarDeclaration       : 6 7
+VarDeclarationList   : 4 7
+VarDeclarationPart   : 3
+WhileStatement       : 30
+WriteStatement       : 27
+empty                : 5 18 22 33 56
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Program
+    (1) Program -> . PROGRAM ID SEMICOLON Block DOT
+
+    PROGRAM         shift and go to state 2
+
+    Program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> Program .
+
+
+
+state 2
+
+    (1) Program -> PROGRAM . ID SEMICOLON Block DOT
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) Program -> PROGRAM ID . SEMICOLON Block DOT
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) Program -> PROGRAM ID SEMICOLON . Block DOT
+    (2) Block -> . Declarations CompoundStatement
+    (3) Declarations -> . VarDeclarationPart FunctionDeclarations
+    (4) VarDeclarationPart -> . VAR VarDeclarationList
+    (5) VarDeclarationPart -> . empty
+    (71) empty -> .
+
+    VAR             shift and go to state 8
+    FUNCTION        reduce using rule 71 (empty -> .)
+    BEGIN           reduce using rule 71 (empty -> .)
+
+    Block                          shift and go to state 5
+    Declarations                   shift and go to state 6
+    VarDeclarationPart             shift and go to state 7
+    empty                          shift and go to state 9
+
+state 5
+
+    (1) Program -> PROGRAM ID SEMICOLON Block . DOT
+
+    DOT             shift and go to state 10
+
+
+state 6
+
+    (2) Block -> Declarations . CompoundStatement
+    (23) CompoundStatement -> . BEGIN StatementList END
+
+    BEGIN           shift and go to state 12
+
+    CompoundStatement              shift and go to state 11
+
+state 7
+
+    (3) Declarations -> VarDeclarationPart . FunctionDeclarations
+    (17) FunctionDeclarations -> . FunctionDeclaration FunctionDeclarations
+    (18) FunctionDeclarations -> . empty
+    (19) FunctionDeclaration -> . FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
+    (71) empty -> .
+
+    FUNCTION        shift and go to state 16
+    BEGIN           reduce using rule 71 (empty -> .)
+
+    FunctionDeclarations           shift and go to state 13
+    FunctionDeclaration            shift and go to state 14
+    empty                          shift and go to state 15
+
+state 8
+
+    (4) VarDeclarationPart -> VAR . VarDeclarationList
+    (6) VarDeclarationList -> . VarDeclaration
+    (7) VarDeclarationList -> . VarDeclarationList VarDeclaration
+    (8) VarDeclaration -> . IdList COLON Type SEMICOLON
+    (9) IdList -> . ID
+    (10) IdList -> . ID COMMA IdList
+
+    ID              shift and go to state 20
+
+    VarDeclarationList             shift and go to state 17
+    VarDeclaration                 shift and go to state 18
+    IdList                         shift and go to state 19
+
+state 9
+
+    (5) VarDeclarationPart -> empty .
+
+    FUNCTION        reduce using rule 5 (VarDeclarationPart -> empty .)
+    BEGIN           reduce using rule 5 (VarDeclarationPart -> empty .)
+
+
+state 10
+
+    (1) Program -> PROGRAM ID SEMICOLON Block DOT .
+
+    $end            reduce using rule 1 (Program -> PROGRAM ID SEMICOLON Block DOT .)
+
+
+state 11
+
+    (2) Block -> Declarations CompoundStatement .
+
+    DOT             reduce using rule 2 (Block -> Declarations CompoundStatement .)
+
+
+state 12
+
+    (23) CompoundStatement -> BEGIN . StatementList END
+    (24) StatementList -> . Statement
+    (25) StatementList -> . StatementList SEMICOLON Statement
+    (26) Statement -> . AssignmentStatement
+    (27) Statement -> . WriteStatement
+    (28) Statement -> . ReadStatement
+    (29) Statement -> . IfStatement
+    (30) Statement -> . WhileStatement
+    (31) Statement -> . ForStatement
+    (32) Statement -> . CompoundStatement
+    (33) Statement -> . empty
+    (36) AssignmentStatement -> . ID ASSIGN Expression
+    (37) AssignmentStatement -> . ArrayAccess ASSIGN Expression
+    (38) WriteStatement -> . WRITELN LPAREN ExpressionList RPAREN
+    (34) ReadStatement -> . READLN LPAREN ArrayAccess RPAREN
+    (35) ReadStatement -> . READLN LPAREN ID RPAREN
+    (42) IfStatement -> . IF Expression THEN Statement
+    (43) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (44) WhileStatement -> . WHILE Expression DO Statement
+    (45) ForStatement -> . FOR ID ASSIGN Expression TO Expression DO Statement
+    (23) CompoundStatement -> . BEGIN StatementList END
+    (71) empty -> .
+    (70) ArrayAccess -> . ID LBRACKET Expression RBRACKET
+
+    ID              shift and go to state 31
+    WRITELN         shift and go to state 33
+    READLN          shift and go to state 34
+    IF              shift and go to state 35
+    WHILE           shift and go to state 36
+    FOR             shift and go to state 37
+    BEGIN           shift and go to state 12
+    END             reduce using rule 71 (empty -> .)
+    SEMICOLON       reduce using rule 71 (empty -> .)
+
+    StatementList                  shift and go to state 21
+    Statement                      shift and go to state 22
+    AssignmentStatement            shift and go to state 23
+    WriteStatement                 shift and go to state 24
+    ReadStatement                  shift and go to state 25
+    IfStatement                    shift and go to state 26
+    WhileStatement                 shift and go to state 27
+    ForStatement                   shift and go to state 28
+    CompoundStatement              shift and go to state 29
+    empty                          shift and go to state 30
+    ArrayAccess                    shift and go to state 32
+
+state 13
+
+    (3) Declarations -> VarDeclarationPart FunctionDeclarations .
+
+    BEGIN           reduce using rule 3 (Declarations -> VarDeclarationPart FunctionDeclarations .)
+
+
+state 14
+
+    (17) FunctionDeclarations -> FunctionDeclaration . FunctionDeclarations
+    (17) FunctionDeclarations -> . FunctionDeclaration FunctionDeclarations
+    (18) FunctionDeclarations -> . empty
+    (19) FunctionDeclaration -> . FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
+    (71) empty -> .
+
+    FUNCTION        shift and go to state 16
+    BEGIN           reduce using rule 71 (empty -> .)
+
+    FunctionDeclaration            shift and go to state 14
+    FunctionDeclarations           shift and go to state 38
+    empty                          shift and go to state 15
+
+state 15
+
+    (18) FunctionDeclarations -> empty .
+
+    BEGIN           reduce using rule 18 (FunctionDeclarations -> empty .)
+
+
+state 16
+
+    (19) FunctionDeclaration -> FUNCTION . ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
+
+    ID              shift and go to state 39
+
+
+state 17
+
+    (4) VarDeclarationPart -> VAR VarDeclarationList .
+    (7) VarDeclarationList -> VarDeclarationList . VarDeclaration
+    (8) VarDeclaration -> . IdList COLON Type SEMICOLON
+    (9) IdList -> . ID
+    (10) IdList -> . ID COMMA IdList
+
+    FUNCTION        reduce using rule 4 (VarDeclarationPart -> VAR VarDeclarationList .)
+    BEGIN           reduce using rule 4 (VarDeclarationPart -> VAR VarDeclarationList .)
+    ID              shift and go to state 20
+
+    VarDeclaration                 shift and go to state 40
+    IdList                         shift and go to state 19
+
+state 18
+
+    (6) VarDeclarationList -> VarDeclaration .
+
+    ID              reduce using rule 6 (VarDeclarationList -> VarDeclaration .)
+    FUNCTION        reduce using rule 6 (VarDeclarationList -> VarDeclaration .)
+    BEGIN           reduce using rule 6 (VarDeclarationList -> VarDeclaration .)
+
+
+state 19
+
+    (8) VarDeclaration -> IdList . COLON Type SEMICOLON
+
+    COLON           shift and go to state 41
+
+
+state 20
+
+    (9) IdList -> ID .
+    (10) IdList -> ID . COMMA IdList
+
+    COLON           reduce using rule 9 (IdList -> ID .)
+    COMMA           shift and go to state 42
+
+
+state 21
+
+    (23) CompoundStatement -> BEGIN StatementList . END
+    (25) StatementList -> StatementList . SEMICOLON Statement
+
+    END             shift and go to state 43
+    SEMICOLON       shift and go to state 44
+
+
+state 22
+
+    (24) StatementList -> Statement .
+
+    END             reduce using rule 24 (StatementList -> Statement .)
+    SEMICOLON       reduce using rule 24 (StatementList -> Statement .)
+
+
+state 23
+
+    (26) Statement -> AssignmentStatement .
+
+    END             reduce using rule 26 (Statement -> AssignmentStatement .)
+    SEMICOLON       reduce using rule 26 (Statement -> AssignmentStatement .)
+    ELSE            reduce using rule 26 (Statement -> AssignmentStatement .)
+
+
+state 24
+
+    (27) Statement -> WriteStatement .
+
+    END             reduce using rule 27 (Statement -> WriteStatement .)
+    SEMICOLON       reduce using rule 27 (Statement -> WriteStatement .)
+    ELSE            reduce using rule 27 (Statement -> WriteStatement .)
+
+
+state 25
+
+    (28) Statement -> ReadStatement .
+
+    END             reduce using rule 28 (Statement -> ReadStatement .)
+    SEMICOLON       reduce using rule 28 (Statement -> ReadStatement .)
+    ELSE            reduce using rule 28 (Statement -> ReadStatement .)
+
+
+state 26
+
+    (29) Statement -> IfStatement .
+
+    END             reduce using rule 29 (Statement -> IfStatement .)
+    SEMICOLON       reduce using rule 29 (Statement -> IfStatement .)
+    ELSE            reduce using rule 29 (Statement -> IfStatement .)
+
+
+state 27
+
+    (30) Statement -> WhileStatement .
+
+    END             reduce using rule 30 (Statement -> WhileStatement .)
+    SEMICOLON       reduce using rule 30 (Statement -> WhileStatement .)
+    ELSE            reduce using rule 30 (Statement -> WhileStatement .)
+
+
+state 28
+
+    (31) Statement -> ForStatement .
+
+    END             reduce using rule 31 (Statement -> ForStatement .)
+    SEMICOLON       reduce using rule 31 (Statement -> ForStatement .)
+    ELSE            reduce using rule 31 (Statement -> ForStatement .)
+
+
+state 29
+
+    (32) Statement -> CompoundStatement .
+
+    END             reduce using rule 32 (Statement -> CompoundStatement .)
+    SEMICOLON       reduce using rule 32 (Statement -> CompoundStatement .)
+    ELSE            reduce using rule 32 (Statement -> CompoundStatement .)
+
+
+state 30
+
+    (33) Statement -> empty .
+
+    END             reduce using rule 33 (Statement -> empty .)
+    SEMICOLON       reduce using rule 33 (Statement -> empty .)
+    ELSE            reduce using rule 33 (Statement -> empty .)
+
+
+state 31
+
+    (36) AssignmentStatement -> ID . ASSIGN Expression
+    (70) ArrayAccess -> ID . LBRACKET Expression RBRACKET
+
+    ASSIGN          shift and go to state 45
+    LBRACKET        shift and go to state 46
+
+
+state 32
+
+    (37) AssignmentStatement -> ArrayAccess . ASSIGN Expression
+
+    ASSIGN          shift and go to state 47
+
+
+state 33
+
+    (38) WriteStatement -> WRITELN . LPAREN ExpressionList RPAREN
+
+    LPAREN          shift and go to state 48
+
+
+state 34
+
+    (34) ReadStatement -> READLN . LPAREN ArrayAccess RPAREN
+    (35) ReadStatement -> READLN . LPAREN ID RPAREN
+
+    LPAREN          shift and go to state 49
+
+
+state 35
+
+    (42) IfStatement -> IF . Expression THEN Statement
+    (43) IfStatement -> IF . Expression THEN Statement ELSE Statement
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 50
+
+state 36
+
+    (44) WhileStatement -> WHILE . Expression DO Statement
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 58
+
+state 37
+
+    (45) ForStatement -> FOR . ID ASSIGN Expression TO Expression DO Statement
+
+    ID              shift and go to state 59
+
+
+state 38
+
+    (17) FunctionDeclarations -> FunctionDeclaration FunctionDeclarations .
+
+    BEGIN           reduce using rule 17 (FunctionDeclarations -> FunctionDeclaration FunctionDeclarations .)
+
+
+state 39
+
+    (19) FunctionDeclaration -> FUNCTION ID . LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
+
+    LPAREN          shift and go to state 60
+
+
+state 40
+
+    (7) VarDeclarationList -> VarDeclarationList VarDeclaration .
+
+    ID              reduce using rule 7 (VarDeclarationList -> VarDeclarationList VarDeclaration .)
+    FUNCTION        reduce using rule 7 (VarDeclarationList -> VarDeclarationList VarDeclaration .)
+    BEGIN           reduce using rule 7 (VarDeclarationList -> VarDeclarationList VarDeclaration .)
+
+
+state 41
+
+    (8) VarDeclaration -> IdList COLON . Type SEMICOLON
+    (11) Type -> . BasicType
+    (12) Type -> . ArrayType
+    (13) BasicType -> . INTEGER
+    (14) BasicType -> . STRING
+    (15) BasicType -> . BOOLEAN
+    (16) ArrayType -> . ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType
+
+    INTEGER         shift and go to state 64
+    STRING          shift and go to state 65
+    BOOLEAN         shift and go to state 66
+    ARRAY           shift and go to state 67
+
+    Type                           shift and go to state 61
+    BasicType                      shift and go to state 62
+    ArrayType                      shift and go to state 63
+
+state 42
+
+    (10) IdList -> ID COMMA . IdList
+    (9) IdList -> . ID
+    (10) IdList -> . ID COMMA IdList
+
+    ID              shift and go to state 20
+
+    IdList                         shift and go to state 68
+
+state 43
+
+    (23) CompoundStatement -> BEGIN StatementList END .
+
+    DOT             reduce using rule 23 (CompoundStatement -> BEGIN StatementList END .)
+    END             reduce using rule 23 (CompoundStatement -> BEGIN StatementList END .)
+    SEMICOLON       reduce using rule 23 (CompoundStatement -> BEGIN StatementList END .)
+    ELSE            reduce using rule 23 (CompoundStatement -> BEGIN StatementList END .)
+    FUNCTION        reduce using rule 23 (CompoundStatement -> BEGIN StatementList END .)
+    BEGIN           reduce using rule 23 (CompoundStatement -> BEGIN StatementList END .)
+
+
+state 44
+
+    (25) StatementList -> StatementList SEMICOLON . Statement
+    (26) Statement -> . AssignmentStatement
+    (27) Statement -> . WriteStatement
+    (28) Statement -> . ReadStatement
+    (29) Statement -> . IfStatement
+    (30) Statement -> . WhileStatement
+    (31) Statement -> . ForStatement
+    (32) Statement -> . CompoundStatement
+    (33) Statement -> . empty
+    (36) AssignmentStatement -> . ID ASSIGN Expression
+    (37) AssignmentStatement -> . ArrayAccess ASSIGN Expression
+    (38) WriteStatement -> . WRITELN LPAREN ExpressionList RPAREN
+    (34) ReadStatement -> . READLN LPAREN ArrayAccess RPAREN
+    (35) ReadStatement -> . READLN LPAREN ID RPAREN
+    (42) IfStatement -> . IF Expression THEN Statement
+    (43) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (44) WhileStatement -> . WHILE Expression DO Statement
+    (45) ForStatement -> . FOR ID ASSIGN Expression TO Expression DO Statement
+    (23) CompoundStatement -> . BEGIN StatementList END
+    (71) empty -> .
+    (70) ArrayAccess -> . ID LBRACKET Expression RBRACKET
+
+    ID              shift and go to state 31
+    WRITELN         shift and go to state 33
+    READLN          shift and go to state 34
+    IF              shift and go to state 35
+    WHILE           shift and go to state 36
+    FOR             shift and go to state 37
+    BEGIN           shift and go to state 12
+    END             reduce using rule 71 (empty -> .)
+    SEMICOLON       reduce using rule 71 (empty -> .)
+
+    Statement                      shift and go to state 69
+    AssignmentStatement            shift and go to state 23
+    WriteStatement                 shift and go to state 24
+    ReadStatement                  shift and go to state 25
+    IfStatement                    shift and go to state 26
+    WhileStatement                 shift and go to state 27
+    ForStatement                   shift and go to state 28
+    CompoundStatement              shift and go to state 29
+    empty                          shift and go to state 30
+    ArrayAccess                    shift and go to state 32
+
+state 45
+
+    (36) AssignmentStatement -> ID ASSIGN . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 70
+
+state 46
+
+    (70) ArrayAccess -> ID LBRACKET . Expression RBRACKET
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 71
+
+state 47
+
+    (37) AssignmentStatement -> ArrayAccess ASSIGN . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 72
+
+state 48
+
+    (38) WriteStatement -> WRITELN LPAREN . ExpressionList RPAREN
+    (39) ExpressionList -> . Expression
+    (40) ExpressionList -> . ExpressionList COMMA Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    ExpressionList                 shift and go to state 73
+    Expression                     shift and go to state 74
+
+state 49
+
+    (34) ReadStatement -> READLN LPAREN . ArrayAccess RPAREN
+    (35) ReadStatement -> READLN LPAREN . ID RPAREN
+    (70) ArrayAccess -> . ID LBRACKET Expression RBRACKET
+
+    ID              shift and go to state 76
+
+    ArrayAccess                    shift and go to state 75
+
+state 50
+
+    (42) IfStatement -> IF Expression . THEN Statement
+    (43) IfStatement -> IF Expression . THEN Statement ELSE Statement
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    THEN            shift and go to state 77
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 51
+
+    (41) Expression -> LENGTH . LPAREN Expression RPAREN
+
+    LPAREN          shift and go to state 91
+
+
+state 52
+
+    (47) Expression -> LPAREN . Expression RPAREN
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 92
+
+state 53
+
+    (46) Expression -> NUMBER .
+
+    THEN            reduce using rule 46 (Expression -> NUMBER .)
+    PLUS            reduce using rule 46 (Expression -> NUMBER .)
+    MINUS           reduce using rule 46 (Expression -> NUMBER .)
+    TIMES           reduce using rule 46 (Expression -> NUMBER .)
+    MOD             reduce using rule 46 (Expression -> NUMBER .)
+    DIV             reduce using rule 46 (Expression -> NUMBER .)
+    LT              reduce using rule 46 (Expression -> NUMBER .)
+    GT              reduce using rule 46 (Expression -> NUMBER .)
+    EQ              reduce using rule 46 (Expression -> NUMBER .)
+    NEQ             reduce using rule 46 (Expression -> NUMBER .)
+    LTE             reduce using rule 46 (Expression -> NUMBER .)
+    GTE             reduce using rule 46 (Expression -> NUMBER .)
+    AND             reduce using rule 46 (Expression -> NUMBER .)
+    OR              reduce using rule 46 (Expression -> NUMBER .)
+    DO              reduce using rule 46 (Expression -> NUMBER .)
+    END             reduce using rule 46 (Expression -> NUMBER .)
+    SEMICOLON       reduce using rule 46 (Expression -> NUMBER .)
+    ELSE            reduce using rule 46 (Expression -> NUMBER .)
+    RBRACKET        reduce using rule 46 (Expression -> NUMBER .)
+    RPAREN          reduce using rule 46 (Expression -> NUMBER .)
+    COMMA           reduce using rule 46 (Expression -> NUMBER .)
+    TO              reduce using rule 46 (Expression -> NUMBER .)
+
+
+state 54
+
+    (48) Expression -> TRUE .
+
+    THEN            reduce using rule 48 (Expression -> TRUE .)
+    PLUS            reduce using rule 48 (Expression -> TRUE .)
+    MINUS           reduce using rule 48 (Expression -> TRUE .)
+    TIMES           reduce using rule 48 (Expression -> TRUE .)
+    MOD             reduce using rule 48 (Expression -> TRUE .)
+    DIV             reduce using rule 48 (Expression -> TRUE .)
+    LT              reduce using rule 48 (Expression -> TRUE .)
+    GT              reduce using rule 48 (Expression -> TRUE .)
+    EQ              reduce using rule 48 (Expression -> TRUE .)
+    NEQ             reduce using rule 48 (Expression -> TRUE .)
+    LTE             reduce using rule 48 (Expression -> TRUE .)
+    GTE             reduce using rule 48 (Expression -> TRUE .)
+    AND             reduce using rule 48 (Expression -> TRUE .)
+    OR              reduce using rule 48 (Expression -> TRUE .)
+    DO              reduce using rule 48 (Expression -> TRUE .)
+    END             reduce using rule 48 (Expression -> TRUE .)
+    SEMICOLON       reduce using rule 48 (Expression -> TRUE .)
+    ELSE            reduce using rule 48 (Expression -> TRUE .)
+    RBRACKET        reduce using rule 48 (Expression -> TRUE .)
+    RPAREN          reduce using rule 48 (Expression -> TRUE .)
+    COMMA           reduce using rule 48 (Expression -> TRUE .)
+    TO              reduce using rule 48 (Expression -> TRUE .)
+
+
+state 55
+
+    (49) Expression -> FALSE .
+
+    THEN            reduce using rule 49 (Expression -> FALSE .)
+    PLUS            reduce using rule 49 (Expression -> FALSE .)
+    MINUS           reduce using rule 49 (Expression -> FALSE .)
+    TIMES           reduce using rule 49 (Expression -> FALSE .)
+    MOD             reduce using rule 49 (Expression -> FALSE .)
+    DIV             reduce using rule 49 (Expression -> FALSE .)
+    LT              reduce using rule 49 (Expression -> FALSE .)
+    GT              reduce using rule 49 (Expression -> FALSE .)
+    EQ              reduce using rule 49 (Expression -> FALSE .)
+    NEQ             reduce using rule 49 (Expression -> FALSE .)
+    LTE             reduce using rule 49 (Expression -> FALSE .)
+    GTE             reduce using rule 49 (Expression -> FALSE .)
+    AND             reduce using rule 49 (Expression -> FALSE .)
+    OR              reduce using rule 49 (Expression -> FALSE .)
+    DO              reduce using rule 49 (Expression -> FALSE .)
+    END             reduce using rule 49 (Expression -> FALSE .)
+    SEMICOLON       reduce using rule 49 (Expression -> FALSE .)
+    ELSE            reduce using rule 49 (Expression -> FALSE .)
+    RBRACKET        reduce using rule 49 (Expression -> FALSE .)
+    RPAREN          reduce using rule 49 (Expression -> FALSE .)
+    COMMA           reduce using rule 49 (Expression -> FALSE .)
+    TO              reduce using rule 49 (Expression -> FALSE .)
+
+
+state 56
+
+    (50) Expression -> STRING_LITERAL .
+
+    THEN            reduce using rule 50 (Expression -> STRING_LITERAL .)
+    PLUS            reduce using rule 50 (Expression -> STRING_LITERAL .)
+    MINUS           reduce using rule 50 (Expression -> STRING_LITERAL .)
+    TIMES           reduce using rule 50 (Expression -> STRING_LITERAL .)
+    MOD             reduce using rule 50 (Expression -> STRING_LITERAL .)
+    DIV             reduce using rule 50 (Expression -> STRING_LITERAL .)
+    LT              reduce using rule 50 (Expression -> STRING_LITERAL .)
+    GT              reduce using rule 50 (Expression -> STRING_LITERAL .)
+    EQ              reduce using rule 50 (Expression -> STRING_LITERAL .)
+    NEQ             reduce using rule 50 (Expression -> STRING_LITERAL .)
+    LTE             reduce using rule 50 (Expression -> STRING_LITERAL .)
+    GTE             reduce using rule 50 (Expression -> STRING_LITERAL .)
+    AND             reduce using rule 50 (Expression -> STRING_LITERAL .)
+    OR              reduce using rule 50 (Expression -> STRING_LITERAL .)
+    DO              reduce using rule 50 (Expression -> STRING_LITERAL .)
+    END             reduce using rule 50 (Expression -> STRING_LITERAL .)
+    SEMICOLON       reduce using rule 50 (Expression -> STRING_LITERAL .)
+    ELSE            reduce using rule 50 (Expression -> STRING_LITERAL .)
+    RBRACKET        reduce using rule 50 (Expression -> STRING_LITERAL .)
+    RPAREN          reduce using rule 50 (Expression -> STRING_LITERAL .)
+    COMMA           reduce using rule 50 (Expression -> STRING_LITERAL .)
+    TO              reduce using rule 50 (Expression -> STRING_LITERAL .)
+
+
+state 57
+
+    (51) Expression -> ID .
+    (52) Expression -> ID . LBRACKET Expression RBRACKET
+    (53) Expression -> ID . LPAREN ActualParameters RPAREN
+
+    THEN            reduce using rule 51 (Expression -> ID .)
+    PLUS            reduce using rule 51 (Expression -> ID .)
+    MINUS           reduce using rule 51 (Expression -> ID .)
+    TIMES           reduce using rule 51 (Expression -> ID .)
+    MOD             reduce using rule 51 (Expression -> ID .)
+    DIV             reduce using rule 51 (Expression -> ID .)
+    LT              reduce using rule 51 (Expression -> ID .)
+    GT              reduce using rule 51 (Expression -> ID .)
+    EQ              reduce using rule 51 (Expression -> ID .)
+    NEQ             reduce using rule 51 (Expression -> ID .)
+    LTE             reduce using rule 51 (Expression -> ID .)
+    GTE             reduce using rule 51 (Expression -> ID .)
+    AND             reduce using rule 51 (Expression -> ID .)
+    OR              reduce using rule 51 (Expression -> ID .)
+    DO              reduce using rule 51 (Expression -> ID .)
+    END             reduce using rule 51 (Expression -> ID .)
+    SEMICOLON       reduce using rule 51 (Expression -> ID .)
+    ELSE            reduce using rule 51 (Expression -> ID .)
+    RBRACKET        reduce using rule 51 (Expression -> ID .)
+    RPAREN          reduce using rule 51 (Expression -> ID .)
+    COMMA           reduce using rule 51 (Expression -> ID .)
+    TO              reduce using rule 51 (Expression -> ID .)
+    LBRACKET        shift and go to state 93
+    LPAREN          shift and go to state 94
+
+
+state 58
+
+    (44) WhileStatement -> WHILE Expression . DO Statement
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    DO              shift and go to state 95
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 59
+
+    (45) ForStatement -> FOR ID . ASSIGN Expression TO Expression DO Statement
+
+    ASSIGN          shift and go to state 96
+
+
+state 60
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN . FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
+    (20) FormalParameters -> . ID COLON Type
+    (21) FormalParameters -> . ID COLON Type SEMICOLON FormalParameters
+    (22) FormalParameters -> . empty
+    (71) empty -> .
+
+    ID              shift and go to state 97
+    RPAREN          reduce using rule 71 (empty -> .)
+
+    FormalParameters               shift and go to state 98
+    empty                          shift and go to state 99
+
+state 61
+
+    (8) VarDeclaration -> IdList COLON Type . SEMICOLON
+
+    SEMICOLON       shift and go to state 100
+
+
+state 62
+
+    (11) Type -> BasicType .
+
+    SEMICOLON       reduce using rule 11 (Type -> BasicType .)
+    RPAREN          reduce using rule 11 (Type -> BasicType .)
+
+
+state 63
+
+    (12) Type -> ArrayType .
+
+    SEMICOLON       reduce using rule 12 (Type -> ArrayType .)
+    RPAREN          reduce using rule 12 (Type -> ArrayType .)
+
+
+state 64
+
+    (13) BasicType -> INTEGER .
+
+    SEMICOLON       reduce using rule 13 (BasicType -> INTEGER .)
+    RPAREN          reduce using rule 13 (BasicType -> INTEGER .)
+
+
+state 65
+
+    (14) BasicType -> STRING .
+
+    SEMICOLON       reduce using rule 14 (BasicType -> STRING .)
+    RPAREN          reduce using rule 14 (BasicType -> STRING .)
+
+
+state 66
+
+    (15) BasicType -> BOOLEAN .
+
+    SEMICOLON       reduce using rule 15 (BasicType -> BOOLEAN .)
+    RPAREN          reduce using rule 15 (BasicType -> BOOLEAN .)
+
+
+state 67
+
+    (16) ArrayType -> ARRAY . LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType
+
+    LBRACKET        shift and go to state 101
+
+
+state 68
+
+    (10) IdList -> ID COMMA IdList .
+
+    COLON           reduce using rule 10 (IdList -> ID COMMA IdList .)
+
+
+state 69
+
+    (25) StatementList -> StatementList SEMICOLON Statement .
+
+    END             reduce using rule 25 (StatementList -> StatementList SEMICOLON Statement .)
+    SEMICOLON       reduce using rule 25 (StatementList -> StatementList SEMICOLON Statement .)
+
+
+state 70
+
+    (36) AssignmentStatement -> ID ASSIGN Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    END             reduce using rule 36 (AssignmentStatement -> ID ASSIGN Expression .)
+    SEMICOLON       reduce using rule 36 (AssignmentStatement -> ID ASSIGN Expression .)
+    ELSE            reduce using rule 36 (AssignmentStatement -> ID ASSIGN Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 71
+
+    (70) ArrayAccess -> ID LBRACKET Expression . RBRACKET
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    RBRACKET        shift and go to state 102
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 72
+
+    (37) AssignmentStatement -> ArrayAccess ASSIGN Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    END             reduce using rule 37 (AssignmentStatement -> ArrayAccess ASSIGN Expression .)
+    SEMICOLON       reduce using rule 37 (AssignmentStatement -> ArrayAccess ASSIGN Expression .)
+    ELSE            reduce using rule 37 (AssignmentStatement -> ArrayAccess ASSIGN Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 73
+
+    (38) WriteStatement -> WRITELN LPAREN ExpressionList . RPAREN
+    (40) ExpressionList -> ExpressionList . COMMA Expression
+
+    RPAREN          shift and go to state 103
+    COMMA           shift and go to state 104
+
+
+state 74
+
+    (39) ExpressionList -> Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    RPAREN          reduce using rule 39 (ExpressionList -> Expression .)
+    COMMA           reduce using rule 39 (ExpressionList -> Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 75
+
+    (34) ReadStatement -> READLN LPAREN ArrayAccess . RPAREN
+
+    RPAREN          shift and go to state 105
+
+
+state 76
+
+    (35) ReadStatement -> READLN LPAREN ID . RPAREN
+    (70) ArrayAccess -> ID . LBRACKET Expression RBRACKET
+
+    RPAREN          shift and go to state 106
+    LBRACKET        shift and go to state 46
+
+
+state 77
+
+    (42) IfStatement -> IF Expression THEN . Statement
+    (43) IfStatement -> IF Expression THEN . Statement ELSE Statement
+    (26) Statement -> . AssignmentStatement
+    (27) Statement -> . WriteStatement
+    (28) Statement -> . ReadStatement
+    (29) Statement -> . IfStatement
+    (30) Statement -> . WhileStatement
+    (31) Statement -> . ForStatement
+    (32) Statement -> . CompoundStatement
+    (33) Statement -> . empty
+    (36) AssignmentStatement -> . ID ASSIGN Expression
+    (37) AssignmentStatement -> . ArrayAccess ASSIGN Expression
+    (38) WriteStatement -> . WRITELN LPAREN ExpressionList RPAREN
+    (34) ReadStatement -> . READLN LPAREN ArrayAccess RPAREN
+    (35) ReadStatement -> . READLN LPAREN ID RPAREN
+    (42) IfStatement -> . IF Expression THEN Statement
+    (43) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (44) WhileStatement -> . WHILE Expression DO Statement
+    (45) ForStatement -> . FOR ID ASSIGN Expression TO Expression DO Statement
+    (23) CompoundStatement -> . BEGIN StatementList END
+    (71) empty -> .
+    (70) ArrayAccess -> . ID LBRACKET Expression RBRACKET
+
+    ID              shift and go to state 31
+    WRITELN         shift and go to state 33
+    READLN          shift and go to state 34
+    IF              shift and go to state 35
+    WHILE           shift and go to state 36
+    FOR             shift and go to state 37
+    BEGIN           shift and go to state 12
+    ELSE            reduce using rule 71 (empty -> .)
+    END             reduce using rule 71 (empty -> .)
+    SEMICOLON       reduce using rule 71 (empty -> .)
+
+    Statement                      shift and go to state 107
+    AssignmentStatement            shift and go to state 23
+    WriteStatement                 shift and go to state 24
+    ReadStatement                  shift and go to state 25
+    IfStatement                    shift and go to state 26
+    WhileStatement                 shift and go to state 27
+    ForStatement                   shift and go to state 28
+    CompoundStatement              shift and go to state 29
+    empty                          shift and go to state 30
+    ArrayAccess                    shift and go to state 32
+
+state 78
+
+    (57) Expression -> Expression PLUS . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 108
+
+state 79
+
+    (58) Expression -> Expression MINUS . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 109
+
+state 80
+
+    (59) Expression -> Expression TIMES . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 110
+
+state 81
+
+    (60) Expression -> Expression MOD . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 111
+
+state 82
+
+    (61) Expression -> Expression DIV . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 112
+
+state 83
+
+    (62) Expression -> Expression LT . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 113
+
+state 84
+
+    (63) Expression -> Expression GT . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 114
+
+state 85
+
+    (64) Expression -> Expression EQ . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 115
+
+state 86
+
+    (65) Expression -> Expression NEQ . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 116
+
+state 87
+
+    (66) Expression -> Expression LTE . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 117
+
+state 88
+
+    (67) Expression -> Expression GTE . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 118
+
+state 89
+
+    (68) Expression -> Expression AND . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 119
+
+state 90
+
+    (69) Expression -> Expression OR . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 120
+
+state 91
+
+    (41) Expression -> LENGTH LPAREN . Expression RPAREN
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 121
+
+state 92
+
+    (47) Expression -> LPAREN Expression . RPAREN
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    RPAREN          shift and go to state 122
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 93
+
+    (52) Expression -> ID LBRACKET . Expression RBRACKET
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 123
+
+state 94
+
+    (53) Expression -> ID LPAREN . ActualParameters RPAREN
+    (54) ActualParameters -> . Expression
+    (55) ActualParameters -> . Expression COMMA ActualParameters
+    (56) ActualParameters -> . empty
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+    (71) empty -> .
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+    RPAREN          reduce using rule 71 (empty -> .)
+
+    ActualParameters               shift and go to state 124
+    Expression                     shift and go to state 125
+    empty                          shift and go to state 126
+
+state 95
+
+    (44) WhileStatement -> WHILE Expression DO . Statement
+    (26) Statement -> . AssignmentStatement
+    (27) Statement -> . WriteStatement
+    (28) Statement -> . ReadStatement
+    (29) Statement -> . IfStatement
+    (30) Statement -> . WhileStatement
+    (31) Statement -> . ForStatement
+    (32) Statement -> . CompoundStatement
+    (33) Statement -> . empty
+    (36) AssignmentStatement -> . ID ASSIGN Expression
+    (37) AssignmentStatement -> . ArrayAccess ASSIGN Expression
+    (38) WriteStatement -> . WRITELN LPAREN ExpressionList RPAREN
+    (34) ReadStatement -> . READLN LPAREN ArrayAccess RPAREN
+    (35) ReadStatement -> . READLN LPAREN ID RPAREN
+    (42) IfStatement -> . IF Expression THEN Statement
+    (43) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (44) WhileStatement -> . WHILE Expression DO Statement
+    (45) ForStatement -> . FOR ID ASSIGN Expression TO Expression DO Statement
+    (23) CompoundStatement -> . BEGIN StatementList END
+    (71) empty -> .
+    (70) ArrayAccess -> . ID LBRACKET Expression RBRACKET
+
+    ID              shift and go to state 31
+    WRITELN         shift and go to state 33
+    READLN          shift and go to state 34
+    IF              shift and go to state 35
+    WHILE           shift and go to state 36
+    FOR             shift and go to state 37
+    BEGIN           shift and go to state 12
+    ELSE            reduce using rule 71 (empty -> .)
+    END             reduce using rule 71 (empty -> .)
+    SEMICOLON       reduce using rule 71 (empty -> .)
+
+    Statement                      shift and go to state 127
+    AssignmentStatement            shift and go to state 23
+    WriteStatement                 shift and go to state 24
+    ReadStatement                  shift and go to state 25
+    IfStatement                    shift and go to state 26
+    WhileStatement                 shift and go to state 27
+    ForStatement                   shift and go to state 28
+    CompoundStatement              shift and go to state 29
+    empty                          shift and go to state 30
+    ArrayAccess                    shift and go to state 32
+
+state 96
+
+    (45) ForStatement -> FOR ID ASSIGN . Expression TO Expression DO Statement
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 128
+
+state 97
+
+    (20) FormalParameters -> ID . COLON Type
+    (21) FormalParameters -> ID . COLON Type SEMICOLON FormalParameters
+
+    COLON           shift and go to state 129
+
+
+state 98
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters . RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement
+
+    RPAREN          shift and go to state 130
+
+
+state 99
+
+    (22) FormalParameters -> empty .
+
+    RPAREN          reduce using rule 22 (FormalParameters -> empty .)
+
+
+state 100
+
+    (8) VarDeclaration -> IdList COLON Type SEMICOLON .
+
+    ID              reduce using rule 8 (VarDeclaration -> IdList COLON Type SEMICOLON .)
+    FUNCTION        reduce using rule 8 (VarDeclaration -> IdList COLON Type SEMICOLON .)
+    BEGIN           reduce using rule 8 (VarDeclaration -> IdList COLON Type SEMICOLON .)
+
+
+state 101
+
+    (16) ArrayType -> ARRAY LBRACKET . NUMBER DOTDOT NUMBER RBRACKET OF BasicType
+
+    NUMBER          shift and go to state 131
+
+
+state 102
+
+    (70) ArrayAccess -> ID LBRACKET Expression RBRACKET .
+
+    ASSIGN          reduce using rule 70 (ArrayAccess -> ID LBRACKET Expression RBRACKET .)
+    RPAREN          reduce using rule 70 (ArrayAccess -> ID LBRACKET Expression RBRACKET .)
+
+
+state 103
+
+    (38) WriteStatement -> WRITELN LPAREN ExpressionList RPAREN .
+
+    END             reduce using rule 38 (WriteStatement -> WRITELN LPAREN ExpressionList RPAREN .)
+    SEMICOLON       reduce using rule 38 (WriteStatement -> WRITELN LPAREN ExpressionList RPAREN .)
+    ELSE            reduce using rule 38 (WriteStatement -> WRITELN LPAREN ExpressionList RPAREN .)
+
+
+state 104
+
+    (40) ExpressionList -> ExpressionList COMMA . Expression
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 132
+
+state 105
+
+    (34) ReadStatement -> READLN LPAREN ArrayAccess RPAREN .
+
+    END             reduce using rule 34 (ReadStatement -> READLN LPAREN ArrayAccess RPAREN .)
+    SEMICOLON       reduce using rule 34 (ReadStatement -> READLN LPAREN ArrayAccess RPAREN .)
+    ELSE            reduce using rule 34 (ReadStatement -> READLN LPAREN ArrayAccess RPAREN .)
+
+
+state 106
+
+    (35) ReadStatement -> READLN LPAREN ID RPAREN .
+
+    END             reduce using rule 35 (ReadStatement -> READLN LPAREN ID RPAREN .)
+    SEMICOLON       reduce using rule 35 (ReadStatement -> READLN LPAREN ID RPAREN .)
+    ELSE            reduce using rule 35 (ReadStatement -> READLN LPAREN ID RPAREN .)
+
+
+state 107
+
+    (42) IfStatement -> IF Expression THEN Statement .
+    (43) IfStatement -> IF Expression THEN Statement . ELSE Statement
+
+  ! shift/reduce conflict for ELSE resolved as shift
+    END             reduce using rule 42 (IfStatement -> IF Expression THEN Statement .)
+    SEMICOLON       reduce using rule 42 (IfStatement -> IF Expression THEN Statement .)
+    ELSE            shift and go to state 133
+
+  ! ELSE            [ reduce using rule 42 (IfStatement -> IF Expression THEN Statement .) ]
+
+
+state 108
+
+    (57) Expression -> Expression PLUS Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    DO              reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    END             reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    SEMICOLON       reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    ELSE            reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    RBRACKET        reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    RPAREN          reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    COMMA           reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    TO              reduce using rule 57 (Expression -> Expression PLUS Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! MINUS           [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! TIMES           [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! MOD             [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! DIV             [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! LT              [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! GT              [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! EQ              [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! NEQ             [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! LTE             [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! GTE             [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! AND             [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+  ! OR              [ reduce using rule 57 (Expression -> Expression PLUS Expression .) ]
+
+
+state 109
+
+    (58) Expression -> Expression MINUS Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    DO              reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    END             reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    SEMICOLON       reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    ELSE            reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    RBRACKET        reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    RPAREN          reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    COMMA           reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    TO              reduce using rule 58 (Expression -> Expression MINUS Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! MINUS           [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! TIMES           [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! MOD             [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! DIV             [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! LT              [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! GT              [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! EQ              [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! NEQ             [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! LTE             [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! GTE             [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! AND             [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+  ! OR              [ reduce using rule 58 (Expression -> Expression MINUS Expression .) ]
+
+
+state 110
+
+    (59) Expression -> Expression TIMES Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    DO              reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    END             reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    SEMICOLON       reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    ELSE            reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    RBRACKET        reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    RPAREN          reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    COMMA           reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    TO              reduce using rule 59 (Expression -> Expression TIMES Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! MINUS           [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! TIMES           [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! MOD             [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! DIV             [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! LT              [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! GT              [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! EQ              [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! NEQ             [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! LTE             [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! GTE             [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! AND             [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+  ! OR              [ reduce using rule 59 (Expression -> Expression TIMES Expression .) ]
+
+
+state 111
+
+    (60) Expression -> Expression MOD Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 60 (Expression -> Expression MOD Expression .)
+    DO              reduce using rule 60 (Expression -> Expression MOD Expression .)
+    END             reduce using rule 60 (Expression -> Expression MOD Expression .)
+    SEMICOLON       reduce using rule 60 (Expression -> Expression MOD Expression .)
+    ELSE            reduce using rule 60 (Expression -> Expression MOD Expression .)
+    RBRACKET        reduce using rule 60 (Expression -> Expression MOD Expression .)
+    RPAREN          reduce using rule 60 (Expression -> Expression MOD Expression .)
+    COMMA           reduce using rule 60 (Expression -> Expression MOD Expression .)
+    TO              reduce using rule 60 (Expression -> Expression MOD Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! MINUS           [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! TIMES           [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! MOD             [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! DIV             [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! LT              [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! GT              [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! EQ              [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! NEQ             [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! LTE             [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! GTE             [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! AND             [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+  ! OR              [ reduce using rule 60 (Expression -> Expression MOD Expression .) ]
+
+
+state 112
+
+    (61) Expression -> Expression DIV Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 61 (Expression -> Expression DIV Expression .)
+    DO              reduce using rule 61 (Expression -> Expression DIV Expression .)
+    END             reduce using rule 61 (Expression -> Expression DIV Expression .)
+    SEMICOLON       reduce using rule 61 (Expression -> Expression DIV Expression .)
+    ELSE            reduce using rule 61 (Expression -> Expression DIV Expression .)
+    RBRACKET        reduce using rule 61 (Expression -> Expression DIV Expression .)
+    RPAREN          reduce using rule 61 (Expression -> Expression DIV Expression .)
+    COMMA           reduce using rule 61 (Expression -> Expression DIV Expression .)
+    TO              reduce using rule 61 (Expression -> Expression DIV Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! MINUS           [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! TIMES           [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! MOD             [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! DIV             [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! LT              [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! GT              [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! EQ              [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! NEQ             [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! LTE             [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! GTE             [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! AND             [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+  ! OR              [ reduce using rule 61 (Expression -> Expression DIV Expression .) ]
+
+
+state 113
+
+    (62) Expression -> Expression LT Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 62 (Expression -> Expression LT Expression .)
+    DO              reduce using rule 62 (Expression -> Expression LT Expression .)
+    END             reduce using rule 62 (Expression -> Expression LT Expression .)
+    SEMICOLON       reduce using rule 62 (Expression -> Expression LT Expression .)
+    ELSE            reduce using rule 62 (Expression -> Expression LT Expression .)
+    RBRACKET        reduce using rule 62 (Expression -> Expression LT Expression .)
+    RPAREN          reduce using rule 62 (Expression -> Expression LT Expression .)
+    COMMA           reduce using rule 62 (Expression -> Expression LT Expression .)
+    TO              reduce using rule 62 (Expression -> Expression LT Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! MINUS           [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! TIMES           [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! MOD             [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! DIV             [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! LT              [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! GT              [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! EQ              [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! NEQ             [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! LTE             [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! GTE             [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! AND             [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+  ! OR              [ reduce using rule 62 (Expression -> Expression LT Expression .) ]
+
+
+state 114
+
+    (63) Expression -> Expression GT Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 63 (Expression -> Expression GT Expression .)
+    DO              reduce using rule 63 (Expression -> Expression GT Expression .)
+    END             reduce using rule 63 (Expression -> Expression GT Expression .)
+    SEMICOLON       reduce using rule 63 (Expression -> Expression GT Expression .)
+    ELSE            reduce using rule 63 (Expression -> Expression GT Expression .)
+    RBRACKET        reduce using rule 63 (Expression -> Expression GT Expression .)
+    RPAREN          reduce using rule 63 (Expression -> Expression GT Expression .)
+    COMMA           reduce using rule 63 (Expression -> Expression GT Expression .)
+    TO              reduce using rule 63 (Expression -> Expression GT Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! MINUS           [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! TIMES           [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! MOD             [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! DIV             [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! LT              [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! GT              [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! EQ              [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! NEQ             [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! LTE             [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! GTE             [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! AND             [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+  ! OR              [ reduce using rule 63 (Expression -> Expression GT Expression .) ]
+
+
+state 115
+
+    (64) Expression -> Expression EQ Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 64 (Expression -> Expression EQ Expression .)
+    DO              reduce using rule 64 (Expression -> Expression EQ Expression .)
+    END             reduce using rule 64 (Expression -> Expression EQ Expression .)
+    SEMICOLON       reduce using rule 64 (Expression -> Expression EQ Expression .)
+    ELSE            reduce using rule 64 (Expression -> Expression EQ Expression .)
+    RBRACKET        reduce using rule 64 (Expression -> Expression EQ Expression .)
+    RPAREN          reduce using rule 64 (Expression -> Expression EQ Expression .)
+    COMMA           reduce using rule 64 (Expression -> Expression EQ Expression .)
+    TO              reduce using rule 64 (Expression -> Expression EQ Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! MINUS           [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! TIMES           [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! MOD             [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! DIV             [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! LT              [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! GT              [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! EQ              [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! NEQ             [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! LTE             [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! GTE             [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! AND             [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+  ! OR              [ reduce using rule 64 (Expression -> Expression EQ Expression .) ]
+
+
+state 116
+
+    (65) Expression -> Expression NEQ Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    DO              reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    END             reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    SEMICOLON       reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    ELSE            reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    RBRACKET        reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    RPAREN          reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    COMMA           reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    TO              reduce using rule 65 (Expression -> Expression NEQ Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! MINUS           [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! TIMES           [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! MOD             [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! DIV             [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! LT              [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! GT              [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! EQ              [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! NEQ             [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! LTE             [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! GTE             [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! AND             [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+  ! OR              [ reduce using rule 65 (Expression -> Expression NEQ Expression .) ]
+
+
+state 117
+
+    (66) Expression -> Expression LTE Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 66 (Expression -> Expression LTE Expression .)
+    DO              reduce using rule 66 (Expression -> Expression LTE Expression .)
+    END             reduce using rule 66 (Expression -> Expression LTE Expression .)
+    SEMICOLON       reduce using rule 66 (Expression -> Expression LTE Expression .)
+    ELSE            reduce using rule 66 (Expression -> Expression LTE Expression .)
+    RBRACKET        reduce using rule 66 (Expression -> Expression LTE Expression .)
+    RPAREN          reduce using rule 66 (Expression -> Expression LTE Expression .)
+    COMMA           reduce using rule 66 (Expression -> Expression LTE Expression .)
+    TO              reduce using rule 66 (Expression -> Expression LTE Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! MINUS           [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! TIMES           [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! MOD             [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! DIV             [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! LT              [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! GT              [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! EQ              [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! NEQ             [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! LTE             [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! GTE             [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! AND             [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+  ! OR              [ reduce using rule 66 (Expression -> Expression LTE Expression .) ]
+
+
+state 118
+
+    (67) Expression -> Expression GTE Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 67 (Expression -> Expression GTE Expression .)
+    DO              reduce using rule 67 (Expression -> Expression GTE Expression .)
+    END             reduce using rule 67 (Expression -> Expression GTE Expression .)
+    SEMICOLON       reduce using rule 67 (Expression -> Expression GTE Expression .)
+    ELSE            reduce using rule 67 (Expression -> Expression GTE Expression .)
+    RBRACKET        reduce using rule 67 (Expression -> Expression GTE Expression .)
+    RPAREN          reduce using rule 67 (Expression -> Expression GTE Expression .)
+    COMMA           reduce using rule 67 (Expression -> Expression GTE Expression .)
+    TO              reduce using rule 67 (Expression -> Expression GTE Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! MINUS           [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! TIMES           [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! MOD             [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! DIV             [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! LT              [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! GT              [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! EQ              [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! NEQ             [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! LTE             [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! GTE             [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! AND             [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+  ! OR              [ reduce using rule 67 (Expression -> Expression GTE Expression .) ]
+
+
+state 119
+
+    (68) Expression -> Expression AND Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 68 (Expression -> Expression AND Expression .)
+    DO              reduce using rule 68 (Expression -> Expression AND Expression .)
+    END             reduce using rule 68 (Expression -> Expression AND Expression .)
+    SEMICOLON       reduce using rule 68 (Expression -> Expression AND Expression .)
+    ELSE            reduce using rule 68 (Expression -> Expression AND Expression .)
+    RBRACKET        reduce using rule 68 (Expression -> Expression AND Expression .)
+    RPAREN          reduce using rule 68 (Expression -> Expression AND Expression .)
+    COMMA           reduce using rule 68 (Expression -> Expression AND Expression .)
+    TO              reduce using rule 68 (Expression -> Expression AND Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! MINUS           [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! TIMES           [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! MOD             [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! DIV             [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! LT              [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! GT              [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! EQ              [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! NEQ             [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! LTE             [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! GTE             [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! AND             [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+  ! OR              [ reduce using rule 68 (Expression -> Expression AND Expression .) ]
+
+
+state 120
+
+    (69) Expression -> Expression OR Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for MOD resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NEQ resolved as shift
+  ! shift/reduce conflict for LTE resolved as shift
+  ! shift/reduce conflict for GTE resolved as shift
+  ! shift/reduce conflict for AND resolved as shift
+  ! shift/reduce conflict for OR resolved as shift
+    THEN            reduce using rule 69 (Expression -> Expression OR Expression .)
+    DO              reduce using rule 69 (Expression -> Expression OR Expression .)
+    END             reduce using rule 69 (Expression -> Expression OR Expression .)
+    SEMICOLON       reduce using rule 69 (Expression -> Expression OR Expression .)
+    ELSE            reduce using rule 69 (Expression -> Expression OR Expression .)
+    RBRACKET        reduce using rule 69 (Expression -> Expression OR Expression .)
+    RPAREN          reduce using rule 69 (Expression -> Expression OR Expression .)
+    COMMA           reduce using rule 69 (Expression -> Expression OR Expression .)
+    TO              reduce using rule 69 (Expression -> Expression OR Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+  ! PLUS            [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! MINUS           [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! TIMES           [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! MOD             [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! DIV             [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! LT              [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! GT              [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! EQ              [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! NEQ             [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! LTE             [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! GTE             [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! AND             [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+  ! OR              [ reduce using rule 69 (Expression -> Expression OR Expression .) ]
+
+
+state 121
+
+    (41) Expression -> LENGTH LPAREN Expression . RPAREN
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    RPAREN          shift and go to state 134
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 122
+
+    (47) Expression -> LPAREN Expression RPAREN .
+
+    THEN            reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    PLUS            reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    MINUS           reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    TIMES           reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    MOD             reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    DIV             reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    LT              reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    GT              reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    EQ              reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    NEQ             reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    LTE             reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    GTE             reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    AND             reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    OR              reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    DO              reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    END             reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    SEMICOLON       reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    ELSE            reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    RBRACKET        reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    RPAREN          reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    COMMA           reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+    TO              reduce using rule 47 (Expression -> LPAREN Expression RPAREN .)
+
+
+state 123
+
+    (52) Expression -> ID LBRACKET Expression . RBRACKET
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    RBRACKET        shift and go to state 135
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 124
+
+    (53) Expression -> ID LPAREN ActualParameters . RPAREN
+
+    RPAREN          shift and go to state 136
+
+
+state 125
+
+    (54) ActualParameters -> Expression .
+    (55) ActualParameters -> Expression . COMMA ActualParameters
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    RPAREN          reduce using rule 54 (ActualParameters -> Expression .)
+    COMMA           shift and go to state 137
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 126
+
+    (56) ActualParameters -> empty .
+
+    RPAREN          reduce using rule 56 (ActualParameters -> empty .)
+
+
+state 127
+
+    (44) WhileStatement -> WHILE Expression DO Statement .
+
+    END             reduce using rule 44 (WhileStatement -> WHILE Expression DO Statement .)
+    SEMICOLON       reduce using rule 44 (WhileStatement -> WHILE Expression DO Statement .)
+    ELSE            reduce using rule 44 (WhileStatement -> WHILE Expression DO Statement .)
+
+
+state 128
+
+    (45) ForStatement -> FOR ID ASSIGN Expression . TO Expression DO Statement
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    TO              shift and go to state 138
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 129
+
+    (20) FormalParameters -> ID COLON . Type
+    (21) FormalParameters -> ID COLON . Type SEMICOLON FormalParameters
+    (11) Type -> . BasicType
+    (12) Type -> . ArrayType
+    (13) BasicType -> . INTEGER
+    (14) BasicType -> . STRING
+    (15) BasicType -> . BOOLEAN
+    (16) ArrayType -> . ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType
+
+    INTEGER         shift and go to state 64
+    STRING          shift and go to state 65
+    BOOLEAN         shift and go to state 66
+    ARRAY           shift and go to state 67
+
+    Type                           shift and go to state 139
+    BasicType                      shift and go to state 62
+    ArrayType                      shift and go to state 63
+
+state 130
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN . COLON BasicType SEMICOLON Declarations CompoundStatement
+
+    COLON           shift and go to state 140
+
+
+state 131
+
+    (16) ArrayType -> ARRAY LBRACKET NUMBER . DOTDOT NUMBER RBRACKET OF BasicType
+
+    DOTDOT          shift and go to state 141
+
+
+state 132
+
+    (40) ExpressionList -> ExpressionList COMMA Expression .
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    RPAREN          reduce using rule 40 (ExpressionList -> ExpressionList COMMA Expression .)
+    COMMA           reduce using rule 40 (ExpressionList -> ExpressionList COMMA Expression .)
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 133
+
+    (43) IfStatement -> IF Expression THEN Statement ELSE . Statement
+    (26) Statement -> . AssignmentStatement
+    (27) Statement -> . WriteStatement
+    (28) Statement -> . ReadStatement
+    (29) Statement -> . IfStatement
+    (30) Statement -> . WhileStatement
+    (31) Statement -> . ForStatement
+    (32) Statement -> . CompoundStatement
+    (33) Statement -> . empty
+    (36) AssignmentStatement -> . ID ASSIGN Expression
+    (37) AssignmentStatement -> . ArrayAccess ASSIGN Expression
+    (38) WriteStatement -> . WRITELN LPAREN ExpressionList RPAREN
+    (34) ReadStatement -> . READLN LPAREN ArrayAccess RPAREN
+    (35) ReadStatement -> . READLN LPAREN ID RPAREN
+    (42) IfStatement -> . IF Expression THEN Statement
+    (43) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (44) WhileStatement -> . WHILE Expression DO Statement
+    (45) ForStatement -> . FOR ID ASSIGN Expression TO Expression DO Statement
+    (23) CompoundStatement -> . BEGIN StatementList END
+    (71) empty -> .
+    (70) ArrayAccess -> . ID LBRACKET Expression RBRACKET
+
+    ID              shift and go to state 31
+    WRITELN         shift and go to state 33
+    READLN          shift and go to state 34
+    IF              shift and go to state 35
+    WHILE           shift and go to state 36
+    FOR             shift and go to state 37
+    BEGIN           shift and go to state 12
+    ELSE            reduce using rule 71 (empty -> .)
+    END             reduce using rule 71 (empty -> .)
+    SEMICOLON       reduce using rule 71 (empty -> .)
+
+    Statement                      shift and go to state 142
+    AssignmentStatement            shift and go to state 23
+    WriteStatement                 shift and go to state 24
+    ReadStatement                  shift and go to state 25
+    IfStatement                    shift and go to state 26
+    WhileStatement                 shift and go to state 27
+    ForStatement                   shift and go to state 28
+    CompoundStatement              shift and go to state 29
+    empty                          shift and go to state 30
+    ArrayAccess                    shift and go to state 32
+
+state 134
+
+    (41) Expression -> LENGTH LPAREN Expression RPAREN .
+
+    THEN            reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    PLUS            reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    MINUS           reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    TIMES           reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    MOD             reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    DIV             reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    LT              reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    GT              reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    EQ              reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    NEQ             reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    LTE             reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    GTE             reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    AND             reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    OR              reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    DO              reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    END             reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    SEMICOLON       reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    ELSE            reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    RBRACKET        reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    RPAREN          reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    COMMA           reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+    TO              reduce using rule 41 (Expression -> LENGTH LPAREN Expression RPAREN .)
+
+
+state 135
+
+    (52) Expression -> ID LBRACKET Expression RBRACKET .
+
+    THEN            reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    PLUS            reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    MINUS           reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    TIMES           reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    MOD             reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    DIV             reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    LT              reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    GT              reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    EQ              reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    NEQ             reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    LTE             reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    GTE             reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    AND             reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    OR              reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    DO              reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    END             reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    SEMICOLON       reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    ELSE            reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    RBRACKET        reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    RPAREN          reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    COMMA           reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+    TO              reduce using rule 52 (Expression -> ID LBRACKET Expression RBRACKET .)
+
+
+state 136
+
+    (53) Expression -> ID LPAREN ActualParameters RPAREN .
+
+    THEN            reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    PLUS            reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    MINUS           reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    TIMES           reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    MOD             reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    DIV             reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    LT              reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    GT              reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    EQ              reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    NEQ             reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    LTE             reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    GTE             reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    AND             reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    OR              reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    DO              reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    END             reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    SEMICOLON       reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    ELSE            reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    RBRACKET        reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    RPAREN          reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    COMMA           reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+    TO              reduce using rule 53 (Expression -> ID LPAREN ActualParameters RPAREN .)
+
+
+state 137
+
+    (55) ActualParameters -> Expression COMMA . ActualParameters
+    (54) ActualParameters -> . Expression
+    (55) ActualParameters -> . Expression COMMA ActualParameters
+    (56) ActualParameters -> . empty
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+    (71) empty -> .
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+    RPAREN          reduce using rule 71 (empty -> .)
+
+    Expression                     shift and go to state 125
+    ActualParameters               shift and go to state 143
+    empty                          shift and go to state 126
+
+state 138
+
+    (45) ForStatement -> FOR ID ASSIGN Expression TO . Expression DO Statement
+    (41) Expression -> . LENGTH LPAREN Expression RPAREN
+    (46) Expression -> . NUMBER
+    (47) Expression -> . LPAREN Expression RPAREN
+    (48) Expression -> . TRUE
+    (49) Expression -> . FALSE
+    (50) Expression -> . STRING_LITERAL
+    (51) Expression -> . ID
+    (52) Expression -> . ID LBRACKET Expression RBRACKET
+    (53) Expression -> . ID LPAREN ActualParameters RPAREN
+    (57) Expression -> . Expression PLUS Expression
+    (58) Expression -> . Expression MINUS Expression
+    (59) Expression -> . Expression TIMES Expression
+    (60) Expression -> . Expression MOD Expression
+    (61) Expression -> . Expression DIV Expression
+    (62) Expression -> . Expression LT Expression
+    (63) Expression -> . Expression GT Expression
+    (64) Expression -> . Expression EQ Expression
+    (65) Expression -> . Expression NEQ Expression
+    (66) Expression -> . Expression LTE Expression
+    (67) Expression -> . Expression GTE Expression
+    (68) Expression -> . Expression AND Expression
+    (69) Expression -> . Expression OR Expression
+
+    LENGTH          shift and go to state 51
+    NUMBER          shift and go to state 53
+    LPAREN          shift and go to state 52
+    TRUE            shift and go to state 54
+    FALSE           shift and go to state 55
+    STRING_LITERAL  shift and go to state 56
+    ID              shift and go to state 57
+
+    Expression                     shift and go to state 144
+
+state 139
+
+    (20) FormalParameters -> ID COLON Type .
+    (21) FormalParameters -> ID COLON Type . SEMICOLON FormalParameters
+
+    RPAREN          reduce using rule 20 (FormalParameters -> ID COLON Type .)
+    SEMICOLON       shift and go to state 145
+
+
+state 140
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON . BasicType SEMICOLON Declarations CompoundStatement
+    (13) BasicType -> . INTEGER
+    (14) BasicType -> . STRING
+    (15) BasicType -> . BOOLEAN
+
+    INTEGER         shift and go to state 64
+    STRING          shift and go to state 65
+    BOOLEAN         shift and go to state 66
+
+    BasicType                      shift and go to state 146
+
+state 141
+
+    (16) ArrayType -> ARRAY LBRACKET NUMBER DOTDOT . NUMBER RBRACKET OF BasicType
+
+    NUMBER          shift and go to state 147
+
+
+state 142
+
+    (43) IfStatement -> IF Expression THEN Statement ELSE Statement .
+
+    END             reduce using rule 43 (IfStatement -> IF Expression THEN Statement ELSE Statement .)
+    SEMICOLON       reduce using rule 43 (IfStatement -> IF Expression THEN Statement ELSE Statement .)
+    ELSE            reduce using rule 43 (IfStatement -> IF Expression THEN Statement ELSE Statement .)
+
+
+state 143
+
+    (55) ActualParameters -> Expression COMMA ActualParameters .
+
+    RPAREN          reduce using rule 55 (ActualParameters -> Expression COMMA ActualParameters .)
+
+
+state 144
+
+    (45) ForStatement -> FOR ID ASSIGN Expression TO Expression . DO Statement
+    (57) Expression -> Expression . PLUS Expression
+    (58) Expression -> Expression . MINUS Expression
+    (59) Expression -> Expression . TIMES Expression
+    (60) Expression -> Expression . MOD Expression
+    (61) Expression -> Expression . DIV Expression
+    (62) Expression -> Expression . LT Expression
+    (63) Expression -> Expression . GT Expression
+    (64) Expression -> Expression . EQ Expression
+    (65) Expression -> Expression . NEQ Expression
+    (66) Expression -> Expression . LTE Expression
+    (67) Expression -> Expression . GTE Expression
+    (68) Expression -> Expression . AND Expression
+    (69) Expression -> Expression . OR Expression
+
+    DO              shift and go to state 148
+    PLUS            shift and go to state 78
+    MINUS           shift and go to state 79
+    TIMES           shift and go to state 80
+    MOD             shift and go to state 81
+    DIV             shift and go to state 82
+    LT              shift and go to state 83
+    GT              shift and go to state 84
+    EQ              shift and go to state 85
+    NEQ             shift and go to state 86
+    LTE             shift and go to state 87
+    GTE             shift and go to state 88
+    AND             shift and go to state 89
+    OR              shift and go to state 90
+
+
+state 145
+
+    (21) FormalParameters -> ID COLON Type SEMICOLON . FormalParameters
+    (20) FormalParameters -> . ID COLON Type
+    (21) FormalParameters -> . ID COLON Type SEMICOLON FormalParameters
+    (22) FormalParameters -> . empty
+    (71) empty -> .
+
+    ID              shift and go to state 97
+    RPAREN          reduce using rule 71 (empty -> .)
+
+    FormalParameters               shift and go to state 149
+    empty                          shift and go to state 99
+
+state 146
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType . SEMICOLON Declarations CompoundStatement
+
+    SEMICOLON       shift and go to state 150
+
+
+state 147
+
+    (16) ArrayType -> ARRAY LBRACKET NUMBER DOTDOT NUMBER . RBRACKET OF BasicType
+
+    RBRACKET        shift and go to state 151
+
+
+state 148
+
+    (45) ForStatement -> FOR ID ASSIGN Expression TO Expression DO . Statement
+    (26) Statement -> . AssignmentStatement
+    (27) Statement -> . WriteStatement
+    (28) Statement -> . ReadStatement
+    (29) Statement -> . IfStatement
+    (30) Statement -> . WhileStatement
+    (31) Statement -> . ForStatement
+    (32) Statement -> . CompoundStatement
+    (33) Statement -> . empty
+    (36) AssignmentStatement -> . ID ASSIGN Expression
+    (37) AssignmentStatement -> . ArrayAccess ASSIGN Expression
+    (38) WriteStatement -> . WRITELN LPAREN ExpressionList RPAREN
+    (34) ReadStatement -> . READLN LPAREN ArrayAccess RPAREN
+    (35) ReadStatement -> . READLN LPAREN ID RPAREN
+    (42) IfStatement -> . IF Expression THEN Statement
+    (43) IfStatement -> . IF Expression THEN Statement ELSE Statement
+    (44) WhileStatement -> . WHILE Expression DO Statement
+    (45) ForStatement -> . FOR ID ASSIGN Expression TO Expression DO Statement
+    (23) CompoundStatement -> . BEGIN StatementList END
+    (71) empty -> .
+    (70) ArrayAccess -> . ID LBRACKET Expression RBRACKET
+
+    ID              shift and go to state 31
+    WRITELN         shift and go to state 33
+    READLN          shift and go to state 34
+    IF              shift and go to state 35
+    WHILE           shift and go to state 36
+    FOR             shift and go to state 37
+    BEGIN           shift and go to state 12
+    ELSE            reduce using rule 71 (empty -> .)
+    END             reduce using rule 71 (empty -> .)
+    SEMICOLON       reduce using rule 71 (empty -> .)
+
+    Statement                      shift and go to state 152
+    AssignmentStatement            shift and go to state 23
+    WriteStatement                 shift and go to state 24
+    ReadStatement                  shift and go to state 25
+    IfStatement                    shift and go to state 26
+    WhileStatement                 shift and go to state 27
+    ForStatement                   shift and go to state 28
+    CompoundStatement              shift and go to state 29
+    empty                          shift and go to state 30
+    ArrayAccess                    shift and go to state 32
+
+state 149
+
+    (21) FormalParameters -> ID COLON Type SEMICOLON FormalParameters .
+
+    RPAREN          reduce using rule 21 (FormalParameters -> ID COLON Type SEMICOLON FormalParameters .)
+
+
+state 150
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON . Declarations CompoundStatement
+    (3) Declarations -> . VarDeclarationPart FunctionDeclarations
+    (4) VarDeclarationPart -> . VAR VarDeclarationList
+    (5) VarDeclarationPart -> . empty
+    (71) empty -> .
+
+    VAR             shift and go to state 8
+    FUNCTION        reduce using rule 71 (empty -> .)
+    BEGIN           reduce using rule 71 (empty -> .)
+
+    Declarations                   shift and go to state 153
+    VarDeclarationPart             shift and go to state 7
+    empty                          shift and go to state 9
+
+state 151
+
+    (16) ArrayType -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET . OF BasicType
+
+    OF              shift and go to state 154
+
+
+state 152
+
+    (45) ForStatement -> FOR ID ASSIGN Expression TO Expression DO Statement .
+
+    END             reduce using rule 45 (ForStatement -> FOR ID ASSIGN Expression TO Expression DO Statement .)
+    SEMICOLON       reduce using rule 45 (ForStatement -> FOR ID ASSIGN Expression TO Expression DO Statement .)
+    ELSE            reduce using rule 45 (ForStatement -> FOR ID ASSIGN Expression TO Expression DO Statement .)
+
+
+state 153
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations . CompoundStatement
+    (23) CompoundStatement -> . BEGIN StatementList END
+
+    BEGIN           shift and go to state 12
+
+    CompoundStatement              shift and go to state 155
+
+state 154
+
+    (16) ArrayType -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF . BasicType
+    (13) BasicType -> . INTEGER
+    (14) BasicType -> . STRING
+    (15) BasicType -> . BOOLEAN
+
+    INTEGER         shift and go to state 64
+    STRING          shift and go to state 65
+    BOOLEAN         shift and go to state 66
+
+    BasicType                      shift and go to state 156
+
+state 155
+
+    (19) FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement .
+
+    FUNCTION        reduce using rule 19 (FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement .)
+    BEGIN           reduce using rule 19 (FunctionDeclaration -> FUNCTION ID LPAREN FormalParameters RPAREN COLON BasicType SEMICOLON Declarations CompoundStatement .)
+
+
+state 156
+
+    (16) ArrayType -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType .
+
+    SEMICOLON       reduce using rule 16 (ArrayType -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType .)
+    RPAREN          reduce using rule 16 (ArrayType -> ARRAY LBRACKET NUMBER DOTDOT NUMBER RBRACKET OF BasicType .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ELSE in state 107 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 108 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 108 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 108 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 108 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 108 resolved as shift
+WARNING: shift/reduce conflict for LT in state 108 resolved as shift
+WARNING: shift/reduce conflict for GT in state 108 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 108 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 108 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 108 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 108 resolved as shift
+WARNING: shift/reduce conflict for AND in state 108 resolved as shift
+WARNING: shift/reduce conflict for OR in state 108 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 109 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 109 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 109 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 109 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 109 resolved as shift
+WARNING: shift/reduce conflict for LT in state 109 resolved as shift
+WARNING: shift/reduce conflict for GT in state 109 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 109 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 109 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 109 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 109 resolved as shift
+WARNING: shift/reduce conflict for AND in state 109 resolved as shift
+WARNING: shift/reduce conflict for OR in state 109 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 110 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 110 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 110 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 110 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 110 resolved as shift
+WARNING: shift/reduce conflict for LT in state 110 resolved as shift
+WARNING: shift/reduce conflict for GT in state 110 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 110 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 110 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 110 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 110 resolved as shift
+WARNING: shift/reduce conflict for AND in state 110 resolved as shift
+WARNING: shift/reduce conflict for OR in state 110 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 111 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 111 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 111 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 111 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 111 resolved as shift
+WARNING: shift/reduce conflict for LT in state 111 resolved as shift
+WARNING: shift/reduce conflict for GT in state 111 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 111 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 111 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 111 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 111 resolved as shift
+WARNING: shift/reduce conflict for AND in state 111 resolved as shift
+WARNING: shift/reduce conflict for OR in state 111 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 112 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 112 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 112 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 112 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 112 resolved as shift
+WARNING: shift/reduce conflict for LT in state 112 resolved as shift
+WARNING: shift/reduce conflict for GT in state 112 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 112 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 112 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 112 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 112 resolved as shift
+WARNING: shift/reduce conflict for AND in state 112 resolved as shift
+WARNING: shift/reduce conflict for OR in state 112 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 113 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 113 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 113 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 113 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 113 resolved as shift
+WARNING: shift/reduce conflict for LT in state 113 resolved as shift
+WARNING: shift/reduce conflict for GT in state 113 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 113 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 113 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 113 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 113 resolved as shift
+WARNING: shift/reduce conflict for AND in state 113 resolved as shift
+WARNING: shift/reduce conflict for OR in state 113 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 114 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 114 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 114 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 114 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 114 resolved as shift
+WARNING: shift/reduce conflict for LT in state 114 resolved as shift
+WARNING: shift/reduce conflict for GT in state 114 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 114 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 114 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 114 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 114 resolved as shift
+WARNING: shift/reduce conflict for AND in state 114 resolved as shift
+WARNING: shift/reduce conflict for OR in state 114 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 115 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 115 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 115 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 115 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 115 resolved as shift
+WARNING: shift/reduce conflict for LT in state 115 resolved as shift
+WARNING: shift/reduce conflict for GT in state 115 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 115 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 115 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 115 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 115 resolved as shift
+WARNING: shift/reduce conflict for AND in state 115 resolved as shift
+WARNING: shift/reduce conflict for OR in state 115 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 116 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 116 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 116 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 116 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 116 resolved as shift
+WARNING: shift/reduce conflict for LT in state 116 resolved as shift
+WARNING: shift/reduce conflict for GT in state 116 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 116 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 116 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 116 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 116 resolved as shift
+WARNING: shift/reduce conflict for AND in state 116 resolved as shift
+WARNING: shift/reduce conflict for OR in state 116 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 117 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 117 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 117 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 117 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 117 resolved as shift
+WARNING: shift/reduce conflict for LT in state 117 resolved as shift
+WARNING: shift/reduce conflict for GT in state 117 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 117 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 117 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 117 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 117 resolved as shift
+WARNING: shift/reduce conflict for AND in state 117 resolved as shift
+WARNING: shift/reduce conflict for OR in state 117 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 118 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 118 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 118 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 118 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 118 resolved as shift
+WARNING: shift/reduce conflict for LT in state 118 resolved as shift
+WARNING: shift/reduce conflict for GT in state 118 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 118 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 118 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 118 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 118 resolved as shift
+WARNING: shift/reduce conflict for AND in state 118 resolved as shift
+WARNING: shift/reduce conflict for OR in state 118 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 119 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 119 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 119 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 119 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 119 resolved as shift
+WARNING: shift/reduce conflict for LT in state 119 resolved as shift
+WARNING: shift/reduce conflict for GT in state 119 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 119 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 119 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 119 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 119 resolved as shift
+WARNING: shift/reduce conflict for AND in state 119 resolved as shift
+WARNING: shift/reduce conflict for OR in state 119 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 120 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 120 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 120 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 120 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 120 resolved as shift
+WARNING: shift/reduce conflict for LT in state 120 resolved as shift
+WARNING: shift/reduce conflict for GT in state 120 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 120 resolved as shift
+WARNING: shift/reduce conflict for NEQ in state 120 resolved as shift
+WARNING: shift/reduce conflict for LTE in state 120 resolved as shift
+WARNING: shift/reduce conflict for GTE in state 120 resolved as shift
+WARNING: shift/reduce conflict for AND in state 120 resolved as shift
+WARNING: shift/reduce conflict for OR in state 120 resolved as shift

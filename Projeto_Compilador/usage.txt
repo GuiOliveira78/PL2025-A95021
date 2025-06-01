@@ -1,0 +1,3 @@
+python yacc.py --example MaiorDe3
+python yacc.py --file tests/LargestOf3.pas
+python yacc.py
